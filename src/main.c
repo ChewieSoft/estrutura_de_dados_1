@@ -1,20 +1,20 @@
 #include "main.h"
 
-int main(int argc, char** argv){	
+int main(int argc, char** argv){
+	setlocale(LC_ALL, "Portuguese");
 	gerenciar_menu_principal();		
 	return 0;
 }
 
 int menu_principal(){
 	int opcao;
-	limpar();
-	printf("#########################\n");
-	printf("        HORTIFRUTI       \n");
-	printf("#########################\n");
-	printf("(1) Gerenciar Produto\n");
-	printf("(2) Gerenciar Pedido\n");
-	printf("(3) Sair\n");
-	printf("\n\nSelecionar opcao:");
+	printf("\n#########################");
+	printf("\n        HORTIFRUTI       ");
+	printf("\n#########################");
+	printf("\n(1) Gerenciar Produto");
+	printf("\n(2) Gerenciar Pedido");
+	printf("\n(3) Sair");
+	printf("\n\nSelecionar opção:");
 	scanf("%d", &opcao);
 	return opcao;
 }
@@ -23,6 +23,7 @@ void gerenciar_menu_principal(){
 	int opcao;
 	int sair = 0;
 	do{
+		limpar();
 		opcao = menu_principal();
 		switch(opcao){
 			case 1:
@@ -36,7 +37,7 @@ void gerenciar_menu_principal(){
 				sair = 1;
 				break;
 			default:
-				printf("Opcao Invalida!!!\n");
+				printf("Opção Inválida!!!\n");
 				sair = 0;
 		}
 	}while(!sair);
@@ -46,7 +47,7 @@ int menu_produto(){
 	int opcao;
 	limpar();
 	printf("#########################\n");
-	printf("    Gerenciar Produto\n");
+	printf("    Gerenciar Produto    \n");
 	printf("#########################\n");
 	printf("\n(1) Incluir");
 	printf("\n(2) Alterar");
@@ -54,7 +55,7 @@ int menu_produto(){
 	printf("\n(4) Consultar");
 	printf("\n(5) Excluir");
 	printf("\n(6) Voltar");
-	printf("\n\nSelecionar opcao:");
+	printf("\n\nSelecionar opção:");
 	scanf("%d", &opcao);
 	return opcao;
 }
@@ -85,7 +86,7 @@ void gerenciar_menu_produto(){
 				sair = 1;
 				break;
 			default:
-				printf("Opcao Invalida!");
+				printf("Opção Inválida!");
 				sair = 0;
 		}	
 	}while(!sair);
@@ -105,7 +106,7 @@ int menu_pedido(){
 	printf("\n(5) Finalizar Pedido");	
 	printf("\n(6) Esvaziar carrinho de compras");
 	printf("\n(7) Voltar");
-	printf("\n\nSelecionar opcao:");
+	printf("\n\nSelecionar opção:");
 	scanf("%d", &opcao);
 	return opcao;
 }
@@ -139,7 +140,7 @@ void gerenciar_menu_pedido(){
 				sair = 1;
 				break;
 			default:
-				printf("Opcao Invalida!");
+				printf("Opção Inválida!");
 				sair = 0;			
 		}
 	}while(!sair);

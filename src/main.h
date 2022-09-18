@@ -1,5 +1,6 @@
 #include <stdlib.h>
 #include <stdio.h>
+#include <locale.h>
 
 void gerenciar_menu_principal();
 int menu_principal();
