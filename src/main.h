@@ -20,10 +20,11 @@ void pausa(){
     #if defined(WIN32) || defined (WIN64)
         system("pause");
     #elif defined(unix)
-        system("read -p 'Press Enter to continue...' var");
+        system("read -p 'Aperte Enter para continuar...' var");
     #endif
 }
 
 void sair() {
+    printf("Sair\n");
     exit(0);
 }
