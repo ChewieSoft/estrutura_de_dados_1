@@ -7,14 +7,14 @@ int main(int argc, char** argv){
 }
 
 int menu_principal(){
-	int opcao;
+	int opcao = 0;
 	printf("\n#########################");
 	printf("\n        HORTIFRUTI       ");
 	printf("\n#########################");
 	printf("\n(1) Gerenciar Produto");
 	printf("\n(2) Gerenciar Pedido");
 	printf("\n(3) Sair");
-	printf("\n\nSelecionar opção:");
+	printf("\n\nSelecionar opção: ");
 	scanf("%d", &opcao);
 	return opcao;
 }
@@ -55,7 +55,7 @@ int menu_produto(){
 	printf("\n(4) Consultar");
 	printf("\n(5) Excluir");
 	printf("\n(6) Voltar");
-	printf("\n\nSelecionar opção:");
+	printf("\n\nSelecionar opção: ");
 	scanf("%d", &opcao);
 	return opcao;
 }
@@ -63,29 +63,23 @@ int menu_produto(){
 void gerenciar_menu_produto(){
 	int opcao;
 	int sair = 0;
-	limpar();
 	do{
 		opcao = menu_produto();
 		switch(opcao){
 			case 1:
-				printf("Incluir Produto");
-				void incluir_produto();
+				incluir_produto();
 				break;
 			case 2:
-				printf("Alterar Produto");
-				void alterar_produto();
+				alterar_produto();
 				break;								
 			case 3:
-				printf("Listar produtos");
-				void listar_produtos();
+				listar_produtos();
 				break;
 			case 4:
-				printf("Consultar Produto");
-				void consultar_protudo();
+				consultar_produto();
 				break;
 			case 5:
-				printf("Excluir Produto");
-				void excluir_produto();
+				excluir_produto();
 				break;								
 			case 6:
 				sair = 1;
@@ -98,22 +92,32 @@ void gerenciar_menu_produto(){
 }
 
 void incluir_produto(){
+	limpar();
+	printf("\nIncluir Produto");
 	printf("\nIMPLEMENTAR");
 }
 
 void alterar_produto(){
+	limpar();
+	printf("\nAlterar Produto");
 	printf("\nIMPLEMENTAR");
 }
 
 void listar_produtos(){
+	limpar();
+	printf("\nListar produtos");
 	printf("\nIMPLEMENTAR");
 }
 
 void consultar_produto(){
+	limpar();
+	printf("\nConsultar Produto");
 	printf("\nIMPLEMENTAR");
 }
 
 void excluir_produto(){
+	limpar();
+	printf("\nExcluir Produto");
 	printf("\nIMPLEMENTAR");
 }
 
@@ -130,7 +134,7 @@ int menu_pedido(){
 	printf("\n(5) Finalizar Pedido");	
 	printf("\n(6) Esvaziar carrinho de compras");
 	printf("\n(7) Voltar");
-	printf("\n\nSelecionar opção:");
+	printf("\n\nSelecionar opção: ");
 	scanf("%d", &opcao);
 	return opcao;
 }
@@ -142,29 +146,23 @@ void gerenciar_menu_pedido(){
 	do{	
 		opcao = menu_pedido();		
 		switch(opcao){
-			case 1:
-				printf("Adicionar produto no carrinho");
-				void adicionar_produto_carrinho();
+			case 1:				
+				adicionar_produto_carrinho();
 				break;
 			case 2:
-				printf("Consultar carrinho de compras");
-				void consultar_carrinho_compras();
+				consultar_carrinho_compras();
 				break;								
 			case 3:
-				printf("Excluir produto do carrinho");
-				void excluir_produto_carrinho();
+				excluir_produto_carrinho();
 				break;
 			case 4:
-				printf("Alterar quantidade do produto do carrinho");
-				void alterar_quantidade_produto_carrinho();
+				alterar_quantidade_produto_carrinho();
 				break;
 			case 5:
-				printf("Finalizar Pedido");
-				void finalizar_pedido();
+				finalizar_pedido();
 				break;								
 			case 6:
-				printf("Esvaziar carrinho de compras");
-				void esvaziar_carrinho();
+				esvaziar_carrinho();
 				break;								
 			case 7:
 				sair = 1;
@@ -177,25 +175,37 @@ void gerenciar_menu_pedido(){
 }
 
 void adicionar_produto_carrinho(){
+	limpar();
+	printf("\nAdicionar produto no carrinho");
 	printf("\nIMPLEMENTAR");
 }
 
 void consultar_carrinho_compras(){
+	limpar();
+	printf("Consultar carrinho de compras");
 	printf("\nIMPLEMENTAR");
 }
 
 void excluir_produto_carrinho(){
+	limpar();
+	printf("Excluir produto do carrinho");
 	printf("\nIMPLEMENTAR");
 }
 
 void alterar_quantidade_produto_carrinho(){
+	limpar();
+	printf("Alterar quantidade do produto do carrinho");
 	printf("\nIMPLEMENTAR");
 }
 
 void finalizar_pedido(){
+	limpar();
+	printf("Finalizar Pedido");
 	printf("\nIMPLEMENTAR");
 }
 
 void esvaziar_carrinho(){
+	limpar();
+	printf("Esvaziar carrinho de compras");
 	printf("\nIMPLEMENTAR");
 }

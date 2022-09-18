@@ -18,7 +18,12 @@ void excluir_produto();
 //PEDIDO
 void gerenciar_menu_pedido();
 int menu_pedido();
-
+void adicionar_produto_carrinho();
+void consultar_carrinho_compras();
+void excluir_produto_carrinho();
+void alterar_quantidade_produto_carrinho();
+void finalizar_pedido();
+void esvaziar_carrinho();
 
 void limpar(){
     #if defined(WIN32) || defined (WIN64)
