@@ -2,12 +2,23 @@
 #include <stdio.h>
 #include <locale.h>
 
+//PRINCIPAL
 void gerenciar_menu_principal();
 int menu_principal();
+
+//PRODUTO
 void gerenciar_menu_produto();
 int menu_produto();
+void incluir_produto();
+void alterar_produto();
+void listar_produtos();
+void consultar_produto();
+void excluir_produto();
+
+//PEDIDO
 void gerenciar_menu_pedido();
 int menu_pedido();
+
 
 void limpar(){
     #if defined(WIN32) || defined (WIN64)
