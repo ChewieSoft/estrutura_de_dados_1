@@ -1,3 +1,5 @@
+#include "menu.h"
+
 void gerenciar_menu_produto();
 void gerenciar_menu_pedido();
 
@@ -9,7 +11,7 @@ int menu_principal(){
 	printf("\n(1) Gerenciar Produto");
 	printf("\n(2) Gerenciar Pedido");
 	printf("\n(3) Sair");
-	printf("\n\nSelecionar op√ß√£o: ");
+	printf("\n\nSelecionar opÁ„o: ");
 	scanf("%d", &opcao);
 	return opcao;
 }
@@ -32,7 +34,7 @@ void gerenciar_menu_principal(){
 				sair = 1;
 				break;
 			default:
-				printf("Op√ß√£o Inv√°lida!!!\n");
+				printf("OpÁ„o Inv·lida!!!\n");
 				sair = 0;
 		}
 	}while(!sair);
@@ -50,7 +52,7 @@ int menu_produto(){
 	printf("\n(4) Consultar");
 	printf("\n(5) Excluir");
 	printf("\n(6) Voltar");
-	printf("\n\nSelecionar op√ß√£o: ");
+	printf("\n\nSelecionar opÁ„o: ");
 	scanf("%d", &opcao);
 	return opcao;
 }
@@ -80,7 +82,7 @@ void gerenciar_menu_produto(){
 				sair = 1;
 				break;
 			default:
-				printf("Op√ß√£o Inv√°lida!");
+				printf("OpÁ„o Inv·lida!");
 				sair = 0;
 		}	
 	}while(!sair);	
@@ -99,7 +101,7 @@ int menu_pedido(){
 	printf("\n(5) Finalizar Pedido");	
 	printf("\n(6) Esvaziar carrinho de compras");
 	printf("\n(7) Voltar");
-	printf("\n\nSelecionar op√ß√£o: ");
+	printf("\n\nSelecionar opÁ„o: ");
 	scanf("%d", &opcao);
 	return opcao;
 }
@@ -133,7 +135,7 @@ void gerenciar_menu_pedido(){
 				sair = 1;
 				break;
 			default:
-				printf("Op√ß√£o Inv√°lida!");
+				printf("OpÁ„o Inv·lida!");
 				sair = 0;			
 		}
 	}while(!sair);

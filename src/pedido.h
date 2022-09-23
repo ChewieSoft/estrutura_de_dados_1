@@ -1,6 +1,3 @@
-#include <locale.h>
-#include <stdlib.h>
-#include <stdio.h>
 #include "configuration.h"
 
 void adicionar_produto_carrinho();
