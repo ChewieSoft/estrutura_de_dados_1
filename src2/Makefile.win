@@ -4,8 +4,8 @@
 CPP      = g++.exe
 CC       = gcc.exe
 WINDRES  = windres.exe
-OBJ      = configuration.o main.o menu.o pedido.o produto.o
-LINKOBJ  = configuration.o main.o menu.o pedido.o produto.o
+OBJ      = configuration.o main.o
+LINKOBJ  = configuration.o main.o
 LIBS     = -L"C:/Dev-Cpp/MinGW32/lib" -L"C:/Dev-Cpp/MinGW32/mingw32/lib" -static-libstdc++ -static-libgcc -g3
 INCS     = -I"C:/Dev-Cpp/MinGW32/include" -I"C:/Dev-Cpp/MinGW32/mingw32/include" -I"C:/Dev-Cpp/MinGW32/lib/gcc/mingw32/4.8.1/include"
 CXXINCS  = -I"C:/Dev-Cpp/MinGW32/include" -I"C:/Dev-Cpp/MinGW32/mingw32/include" -I"C:/Dev-Cpp/MinGW32/lib/gcc/mingw32/4.8.1/include" -I"C:/Dev-Cpp/MinGW32/lib/gcc/mingw32/4.8.1/include/c++"
@@ -29,12 +29,3 @@ configuration.o: configuration.c
 
 main.o: main.c
 	$(CC) -c main.c -o main.o $(CFLAGS)
-
-menu.o: menu.c
-	$(CC) -c menu.c -o menu.o $(CFLAGS)
-
-pedido.o: pedido.c
-	$(CC) -c pedido.c -o pedido.o $(CFLAGS)
-
-produto.o: produto.c
-	$(CC) -c produto.c -o produto.o $(CFLAGS)
