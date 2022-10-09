@@ -9,21 +9,19 @@
  #ifndef ADT_SAMPLE_
  #define ADT_SAMPLE_ 
  
-  /*
+ /*
   *  Put here your default needed C definitions
   */
  #include <stdbool.h>
  
-  /*
+ /*
   *  Defines the maximum size of the stack
-  */
- 
+  */ 
  #define STACK_SIZE 50
  
-   /*
+ /*
   *  Defines the pointer to the ADT
-  */ 
-
+  */
 typedef struct StackStruct_t * StackPtr_t;
 
 bool Stack_Init(StackPtr_t Stack);
