@@ -14,83 +14,181 @@ typedef struct pedido{
 	int codigo;
 	int produto;
 	int quantidade;
+	float preco;
 	int total;
 }Pedido;
 
 //VARIAVEIS
 Produto* produtos = NULL;
 int qtdProd = 0;
-int maxProd = 10;
+int maxProd = 2;
 Pedido* pedidos = NULL;
 int qtdPed = 0;
 int maxPed = 2;
 
 //PRODUTO
-void incluir_produto(){
-	printf("\nIMPLEMENTAR");
+void incluir_produto(Produto* produto){
+	if(qtdProd == maxProd){
+		realloc(produto, (maxProd + 10) * sizeof(Produto));
+		maxProd = maxProd + 10;
+	}
+	printf("Cadastrando produto: %d\n", qtdProd+1);
+	printf("Digite o codigo do produto: ");
+	scanf("%d", &produto[qtdProd].codigo);
+	getchar();
+	
+	printf("Digite a descricao do produto: ");
+	scanf("%s", produto[qtdProd].descricao); 
+	getchar();
+	
+	printf("Digite a quantidade inicial do produto em estoque: ");
+	scanf("%d", &produto[qtdProd].qtd_estoque);
+	getchar();
+	
+	printf("Digite o preco do produto: ");
+	scanf("%f", &produto[qtdProd].preco);
+	getchar();
+	
+	printf("\nProduto cadastrado com sucesso\n");
+	consultar_produto(produto, qtdProd);
+	getchar();
+	limpar();
+	qtdProd++;
 }
 
 void alterar_produto(){
 	printf("\nIMPLEMENTAR");
 }
 
-void listar_produtos(struct produto* produtos, int qtd, bool isVazio){
+void listar_produtos(Produto* produto, int qtd, bool isVazio){
 	int i = 0;
 	for (i = 0; i < qtd; i++){
 		if(isVazio){
 			printf("Produto : -- Codigo: %d -- Descricao: %s -- Quantidade em estoque: %d -- Preco: %.2f\n", 
-				produtos[i].codigo,
-				produtos[i].descricao,
-				produtos[i].qtd_estoque,
-				produtos[i].preco
+				produto[i].codigo,
+				produto[i].descricao,
+				produto[i].qtd_estoque,
+				produto[i].preco
 			);
 		}
-		else if(produtos[i].qtd_estoque > 0){
-			
+		else if(produto[i].qtd_estoque > 0){			
 			printf("Produto : -- Codigo: %d -- Descricao: %s -- Quantidade em estoque: %d -- Preco: %.2f\n", 
-				produtos[i].codigo,
-				produtos[i].descricao,
-				produtos[i].qtd_estoque,
-				produtos[i].preco
+				produto[i].codigo,
+				produto[i].descricao,
+				produto[i].qtd_estoque,
+				produto[i].preco
 			);
 		}		
 	}
 	printf("\n");
 }
 
-void consultar_produto(){
-	printf("\nIMPLEMENTAR");
-}
-
-void excluir_produto(){
-	printf("\nIMPLEMENTAR");
-}
-
-int buscar_produto_codigo(Produto* produtos, int codigo){
+int buscar_produto_codigo(Produto* produto, int codigo, bool isVazio){
 	int i = 0;
 	int retorno = ITEM_NAO_ENCONTRADO;
 	for(i=0; i<qtdProd; i++){
-		if(produtos[i].codigo == codigo){
-			return i;
+		if(produto[i].codigo == codigo){
+			if(isVazio){
+				return i;
+			}
+			else if(produto[i].qtd_estoque > 0){
+				return i;
+			}
 		}
 	}
 	return retorno;
 }
 
+void consultar_produto(Produto* produto, int index){
+	if(index == ITEM_NAO_ENCONTRADO){
+		int codProd;
+		printf("Por favor, digite o codigo do produto desejado. ");
+		scanf("%d", &codProd);
+		index = buscar_produto_codigo(produto, codProd, true);
+		if(index == ITEM_NAO_ENCONTRADO){
+			printf("Item nao encontrado!!!\n");
+			pausa();
+			return;
+		}			
+	}
+	printf("\nInformacoes do produto:\n Codigo: %d\n Descricao: %s\n Quantidade em estoque: %d\n Preco: %.2f\n\n", 
+		produto[index].codigo,
+		produto[index].descricao,
+		produto[index].qtd_estoque,
+		produto[index].preco
+	);
+	pausa();
+}
+
+void excluir_produto(Produto* produto){
+	int codProd;
+	int index = 0;
+	printf("Por favor, digite o codigo do produto desejado. ");
+	scanf("%d", &codProd);
+	index = buscar_produto_codigo(produto, codProd, true);
+	if(index == ITEM_NAO_ENCONTRADO){
+		printf("Item nao encontrado!!!\n");
+		pausa();
+		return;
+	}
+	//EXCLUSAO
+	if(qtdProd == 1 || index == qtdProd - 1){
+		qtdProd--;
+		printf("\nProduto excluido com sucesso\n");
+		pausa();
+	}
+	else{
+		produtos[index].codigo = produtos[qtdProd-1].codigo;
+		strcpy(produtos[index].descricao, produtos[qtdProd-1].descricao);
+		produtos[index].qtd_estoque = produtos[qtdProd-1].qtd_estoque;
+		produtos[index].preco =	produtos[qtdProd-1].preco;
+		qtdProd--;
+		printf("\nProduto excluido com sucesso\n");
+		pausa();	
+	}	
+}	
+
+bool produto_disponivel(Produto* produto, int index){
+
+}
+
 //PEDIDO
-void adicionar_produto_carrinho(){
+void adicionar_produto_carrinho(Pedido* pedido){
 	printf("Produtos Disponiveis\n\n");
 	listar_produtos(produtos, qtdProd, false);
+	
 	int codProd;
 	printf("Digite o codigo do produto desejado! ");
 	scanf("%d", &codProd);
-	printf("%d", codProd);
-	printf("INDEX %d", buscar_produto_codigo(produtos, codProd));
+	
+	int prodResult = buscar_produto_codigo(produtos, codProd, false);
+	if(prodResult > ITEM_NAO_ENCONTRADO){
+		consultar_produto(produtos, prodResult);
+	}else{
+		printf("\n\nPRODUTO NAO ENCONTRADO\n\n");
+		pausa();
+		limpar();
+		adicionar_produto_carrinho(pedidos);		
+	}		
+	
+	if(qtdPed == maxPed){
+		realloc(pedido, (maxPed + 10) * sizeof(Pedido));
+		maxPed = maxPed + 10;
+	}
+	
+	pedido[qtdPed].codigo = qtdPed + 1;
+	pedido[qtdPed].produto = prodResult;
+	pedido[qtdPed].preco = produtos[prodResult].preco;
+	
+	printf("Digite a quantidade de produto desejada! ");
+	scanf("%d", pedido[qtdPed].quantidade);
+	pedido[qtdPed].total = pedido[qtdPed].quantidade * pedido[qtdPed].preco;
+	
 	printf("\nIMPLEMENTAR");
 	pausa();
 }
 
-void consultar_carrinho_compras(){
+void consultar_carrinho_compras(Pedido* pedido, int qtd){
 	printf("\nIMPLEMENTAR");
 }
 
@@ -129,7 +227,7 @@ int menu_pedido(){
 	return opcao;
 }
 
-void gerenciar_menu_pedido(Pedido* pedidos){
+void gerenciar_menu_pedido(Pedido* pedido){
 	int opcao;
 	int sair = 0;
 	limpar();
@@ -139,12 +237,12 @@ void gerenciar_menu_pedido(Pedido* pedidos){
 			case 1:
 				limpar();
 				printf("\nAdicionar produto no carrinho\n\n");
-				adicionar_produto_carrinho(pedidos);
+				adicionar_produto_carrinho(pedido);
 				break;
 			case 2:
 				limpar();
 				printf("Consultar carrinho de compras");
-				consultar_carrinho_compras();
+				consultar_carrinho_compras(pedidos, qtdPed);
 				break;								
 			case 3:
 				limpar();
@@ -164,13 +262,13 @@ void gerenciar_menu_pedido(Pedido* pedidos){
 			case 6:
 				limpar();
 				printf("Esvaziar carrinho de compras");
-				esvaziar_carrinho(pedidos);
+				esvaziar_carrinho(pedido);
 				break;								
 			case 7:
 				sair = 1;
 				break;
 			default:
-				printf("Opcao Invalida!");
+				printf("Opcao Invalida!\n\n");
 				sair = 0;			
 		}
 	}while(!sair);
@@ -193,7 +291,7 @@ int menu_produto(){
 	return opcao;
 }
 
-void gerenciar_menu_produto(Produto* produtos){
+void gerenciar_menu_produto(Produto* produto){
 	int opcao;
 	int sair = 0;
 	do{
@@ -201,35 +299,35 @@ void gerenciar_menu_produto(Produto* produtos){
 		switch(opcao){
 			case 1:
 				limpar();
-				printf("\nIncluir Produto");
-				incluir_produto();
+				printf("\nIncluir Produto\n\n");
+				incluir_produto(produto);
 				break;
 			case 2:
 				limpar();
-				printf("\nAlterar Produto");
+				printf("\nAlterar Produto\n\n");
 				alterar_produto();
 				break;								
 			case 3:
 				limpar();
 				printf("\nListar produtos\n\n");
-				listar_produtos(produtos, qtdProd, true);
+				listar_produtos(produto, qtdProd, true);
 				pausa();
 				break;
 			case 4:
 				limpar();
-				printf("\nConsultar Produto");
-				consultar_produto();
+				printf("\nConsultar Produto\n\n");
+				consultar_produto(produto, ITEM_NAO_ENCONTRADO);
 				break;
 			case 5:
 				limpar();
-				printf("\nExcluir Produto");
-				excluir_produto();
+				printf("\nExcluir Produto\n\n");
+				excluir_produto(produtos);
 				break;								
 			case 6:
 				sair = 1;
 				break;
 			default:
-				printf("Op��o Inv�lida!");
+				printf("Opcao Invalida!!!\n");
 				sair = 0;
 		}	
 	}while(!sair);	
@@ -277,15 +375,6 @@ int main(int argc, char** argv){
 	
 	produtos = (Produto*) malloc(maxProd * sizeof(Produto));
 	pedidos = (Pedido*) malloc(maxPed * sizeof(Pedido));
-	
-	int i = 0;
-	for(i = 0; i < 10 ; i++){
-		produtos[i].codigo = i * 10;
-		strcpy(produtos[i].descricao, "Produto");
-		produtos[i].preco = rand() % 21;
-		produtos[i].qtd_estoque = rand() % 50;
-		qtdProd ++;
-	}
 	
 	gerenciar_menu_principal(produtos, pedidos);
 	return 0;
