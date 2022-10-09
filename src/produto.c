@@ -1,9 +1,5 @@
 #include "produto.h"
 
-struct produto {
-
-};
-
 void incluir_produto(){
 	limpar();
 	printf("\nIncluir Produto");
