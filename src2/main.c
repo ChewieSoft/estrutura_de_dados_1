@@ -27,7 +27,7 @@ void gerenciar_menu_principal(Produto* produto, Pedido* pedido){
 				gerenciar_menu_produto(produto);
 				break;
 			case 2:
-				gerenciar_menu_pedido(pedido);
+				gerenciar_menu_pedido(produto, pedido);
 				break;
 			case 3:
 				limpar();
