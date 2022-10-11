@@ -1,5 +1,8 @@
 #include "configuration.h"
 
+int ITEM_NAO_ENCONTRADO = -1;
+int REALLOCFACT = 5;
+
 void limpar(){
     #if defined(WIN32) || defined (WIN64)
         system("cls");
