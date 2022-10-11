@@ -27,9 +27,9 @@ CommandLine=
 Folders=
 IncludeVersionInfo=0
 SupportXPThemes=0
-CompilerSet=4
-CompilerSettings=0000000100000000001000000
-UnitCount=3
+CompilerSet=1
+CompilerSettings=0000000000000000001000000
+UnitCount=7
 
 [VersionInfo]
 Major=1
@@ -81,9 +81,9 @@ OverrideBuildCmd=0
 BuildCmd=
 
 [Unit5]
-FileName=menu.h
+FileName=produto.c
 CompileCpp=0
-Folder=Project
+Folder=
 Compile=1
 Link=1
 Priority=1000
@@ -91,9 +91,9 @@ OverrideBuildCmd=0
 BuildCmd=
 
 [Unit6]
-FileName=pedido.c
+FileName=pedido.h
 CompileCpp=0
-Folder=Project
+Folder=
 Compile=1
 Link=1
 Priority=1000
@@ -101,9 +101,9 @@ OverrideBuildCmd=0
 BuildCmd=
 
 [Unit7]
-FileName=pedido.h
+FileName=pedido.c
 CompileCpp=0
-Folder=Project
+Folder=
 Compile=1
 Link=1
 Priority=1000
@@ -141,9 +141,9 @@ OverrideBuildCmd=0
 BuildCmd=
 
 [Unit4]
-FileName=menu.c
+FileName=produto.h
 CompileCpp=0
-Folder=Project
+Folder=
 Compile=1
 Link=1
 Priority=1000
