@@ -6,6 +6,7 @@ int maxProd;
 typedef struct produto Produto;
 typedef struct listaProduto ListaProduto;
 
+bool consulta_disponibilidade(ListaProduto* listaProduto, int index, int qtd);
 ListaProduto* incluir_produto(ListaProduto* produto);
 void alterar_produto(ListaProduto* listaProduto);
 void listar_produtos(ListaProduto* listaProduto, int qtd, bool isVazio);

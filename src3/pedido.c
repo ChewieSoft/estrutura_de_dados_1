@@ -33,6 +33,17 @@ Pedido* incluir_pedido(){
 	return (Pedido*) malloc(sizeof(Pedido));
 }
 
+int buscar_produto_codigo_pedido(ListaPedido* listaPedido, char codigo[10]){
+	int i = 0;
+	int retorno = ITEM_NAO_ENCONTRADO;
+	for(i = 0; i < qtdProd; i++){
+		if(!strcmp(listaPedido[i].pedido->produto->codigo, codigo)){
+			return i;
+		}
+	}
+	return retorno;
+}
+
 ListaPedido* adicionar_produto_carrinho(ListaProduto* listaProduto, ListaPedido* listaPedido){
 	//LISTAR PRODUTOS DISPONIVEIS
 	printf("Produtos Disponiveis\n\n");
@@ -80,9 +91,9 @@ ListaPedido* adicionar_produto_carrinho(ListaProduto* listaProduto, ListaPedido*
 	
 	//VERIFICAR QUANTIDADE DISPONIVEL
 	do{
-		printf("\nDigite a quantidade de produto desejada!");
+		printf("\nDigite a quantidade de produto desejada! ");
 		scanf("%d", &listaPedido[qtdPed].pedido->quantidade);
-	}while(consulta_disponibilidade(listaProduto, listaPedido[qtdPed].pedido->quantidade));
+	}while(!consulta_disponibilidade(listaProduto, prodResult, listaPedido[qtdPed].pedido->quantidade));
 	
 	listaPedido[qtdPed].pedido->total = listaPedido[qtdPed].pedido->quantidade * listaPedido[qtdPed].pedido->preco;
 	totalGeral += listaPedido[qtdPed].pedido->total;
@@ -95,27 +106,66 @@ void consultar_carrinho_compras(ListaPedido* listaPedido, int qtd){
 	int i = 0;
 	if(qtd == 0){
 		printf("\n\nPedido se encontra vazio!\n");
+		return;
 	}
-	printf("\n\nPedido : -- %s", codigo);
+	//printf("\n\nPedido : -- %s", codigo);
 	printf("\n\nItens :\n");
 	for (i = 0; i < qtd; i++){
-		printf("\%s -- Quantidade: %d -- Preco Unitario: %.2f -- Total: %.2f\n", 
+		printf("\Codigo: %s -- Descricao: %s -- Quantidade: %d -- Preco Unitario: %.2f -- Total: %.2f\n", 
+			listaPedido[i].pedido->produto->codigo,
 			listaPedido[i].pedido->produto->descricao,
 			listaPedido[i].pedido->quantidade,
 			listaPedido[i].pedido->produto->preco,
 			listaPedido[i].pedido->total
 		);
 	}
-	printf("\nTotal Geral : -- %.2f\n", totalGeral);
+	printf("\nA pagar : -- %.2f\n", totalGeral);
 	printf("\n");	
 }
 
-void excluir_produto_carrinho(){
-	printf("\nIMPLEMENTAR");
+void excluir_produto_carrinho(ListaPedido* listaPedido){
+	consultar_carrinho_compras(listaPedido, qtdPed);
+	char codProd[10];
+	int index = 0;
+	printf("Por favor, digite o codigo do produto a ser exluido. ");
+	scanf("%s", codProd);
+	index = buscar_produto_codigo_pedido(listaPedido, codProd);
+	if(index == ITEM_NAO_ENCONTRADO){
+		printf("\nItem nao encontrado!!!\n\n");
+		return;
+	}
+	//EXCLUSAO
+	if(qtdPed == 1 || index == qtdPed - 1){
+		//LIMPA O VET DE PEDIDO
+		totalGeral -= listaPedido[index].pedido->total;
+		free(listaPedido[index].pedido);
+		qtdPed--;
+	}
+	else{
+		totalGeral -= listaPedido[index].pedido->total;
+		listaPedido[index].pedido->produto = listaPedido[qtdPed - 1].pedido->produto;
+		listaPedido[index].pedido->preco = listaPedido[qtdPed - 1].pedido->preco;
+		listaPedido[index].pedido->quantidade = listaPedido[qtdPed - 1].pedido->quantidade;
+		listaPedido[index].pedido->total = listaPedido[qtdPed - 1].pedido->total;
+		//LIMPA O VET DE PEDIDO
+		free(listaPedido[qtdPed-1].pedido);
+		qtdPed--;
+	}
+	printf("\nProduto excluido com sucesso\n\n");
 }
 
-void alterar_quantidade_produto_carrinho(){
-	printf("\nIMPLEMENTAR");
+void alterar_quantidade_produto_carrinho(ListaPedido* listaPedido){
+	consultar_carrinho_compras(listaPedido, qtdPed);
+	char codProd[10];
+	int index = 0;
+	printf("Por favor, digite o codigo do produto desejado. ");
+	scanf("%s", codProd);
+	index = buscar_produto_codigo_pedido(listaPedido, codProd);
+	if(index == ITEM_NAO_ENCONTRADO){
+		printf("\nItem nao encontrado!!!\n\n");
+		pausa();
+		return;
+	}
 }
 
 void finalizar_pedido(){
@@ -166,12 +216,14 @@ void gerenciar_menu_pedido(ListaProduto* listaProduto, ListaPedido* listaPedido)
 			case 3:
 				limpar();
 				printf("Excluir produto do carrinho");
-				//excluir_produto_carrinho();
+				excluir_produto_carrinho(listaPedido);
+				pausa();
 				break;
 			case 4:
 				limpar();
 				printf("Alterar quantidade do produto do carrinho");
-				//alterar_quantidade_produto_carrinho();
+				alterar_quantidade_produto_carrinho(listaPedido);
+				pausa();
 				break;
 			case 5:
 				limpar();

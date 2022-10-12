@@ -236,7 +236,7 @@ void excluir_produto(ListaProduto* listaProduto){
 		qtdProd--;
 		printf("\nProduto excluido com sucesso\n");
 		pausa();	
-	}	
+	}
 }
 
 int menu_produto(){
