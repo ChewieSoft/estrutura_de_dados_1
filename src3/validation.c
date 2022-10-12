@@ -3,7 +3,8 @@
 
 bool is_number_digit_check(char key[])
 {
-    for(int position = 0; position < strlen(key); position++)
+    int position;
+	for(position = 0; position < strlen(key); position++)
     {
         if(isdigit(key[position])==0)
         {
