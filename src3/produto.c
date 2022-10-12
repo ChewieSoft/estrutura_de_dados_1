@@ -14,6 +14,16 @@ struct listaProduto{
 	Produto* produto;
 };
 
+bool consulta_disponibilidade(ListaProduto* listaProduto, int index, int qtd){
+	if(listaProduto[index].produto->qtd_estoque >= qtd){
+		return true;
+	}
+	else{
+		printf("\nQuantidade informada indisponivel!\n");
+		return false;
+	}
+}
+
 Produto* cria_produto(){
 	return (Produto*) malloc(sizeof(Produto));
 }

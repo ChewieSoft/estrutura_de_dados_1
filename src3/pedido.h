@@ -7,8 +7,8 @@ int maxPed;
 typedef struct pedido Pedido;
 typedef struct listaPedido ListaPedido;
 
-void adicionar_produto_carrinho(ListaProduto* listaProduto, ListaPedido* listaPedido);
-//void consultar_carrinho_compras(Pedido* pedido, int qtd);
+ListaPedido* adicionar_produto_carrinho(ListaProduto* listaProduto, ListaPedido* listaPedido);
+void consultar_carrinho_compras(ListaPedido* listaPedido, int qtd);
 //void excluir_produto_carrinho();
 //void alterar_quantidade_produto_carrinho();
 //void finalizar_pedido();

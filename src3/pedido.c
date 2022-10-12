@@ -1,14 +1,28 @@
 #include "pedido.h"
 
+typedef struct produto{
+	char codigo[10];
+	char descricao[50];
+	int qtd_estoque;
+	float preco;
+}Produto;
+
+typedef struct listaProduto{
+	Produto* produto;
+}ListaProduto;
+
 int qtdPed = 0;
 int maxPed = 0;
 
+char codigo[10];
+bool confirmado = false;
+float totalGeral = 0;
+
 struct pedido{
 	Produto* produto;
-	char codigo[10];
 	int quantidade;
 	float preco;
-	int total;
+	float total;
 };
 
 struct listaPedido{
@@ -19,7 +33,7 @@ Pedido* incluir_pedido(){
 	return (Pedido*) malloc(sizeof(Pedido));
 }
 
-void adicionar_produto_carrinho(ListaProduto* listaProduto, ListaPedido* listaPedido){
+ListaPedido* adicionar_produto_carrinho(ListaProduto* listaProduto, ListaPedido* listaPedido){
 	//LISTAR PRODUTOS DISPONIVEIS
 	printf("Produtos Disponiveis\n\n");
 	listar_produtos(listaProduto, qtdProd, false);
@@ -60,23 +74,40 @@ void adicionar_produto_carrinho(ListaProduto* listaProduto, ListaPedido* listaPe
 	listaPedido[qtdPed].pedido = incluir_pedido();
 	
 	//INCLUIR PEDIDO
-	sprintf(listaPedido[qtdPed].pedido->codigo, "%lld", rand_code());
-	//listaPedido[qtdPed].pedido->produto = listaProduto[prodResult].produto;
-	/*
+	sprintf(codigo, "%lld", rand_code());
+	listaPedido[qtdPed].pedido->produto = listaProduto[prodResult].produto;
+	listaPedido[qtdPed].pedido->preco = listaProduto[prodResult].produto->preco;
 	
+	//VERIFICAR QUANTIDADE DISPONIVEL
+	do{
+		printf("\nDigite a quantidade de produto desejada!");
+		scanf("%d", &listaPedido[qtdPed].pedido->quantidade);
+	}while(consulta_disponibilidade(listaProduto, listaPedido[qtdPed].pedido->quantidade));
 	
-	pedido[qtdPed].preco = 10;
-	
-	printf("Digite a quantidade de produto desejada! ");
-	scanf("%d", pedido[qtdPed].quantidade);
-	pedido[qtdPed].total = pedido[qtdPed].quantidade * pedido[qtdPed].preco;
-	*/
-	printf("\nIMPLEMENTAR");
-	pausa();
+	listaPedido[qtdPed].pedido->total = listaPedido[qtdPed].pedido->quantidade * listaPedido[qtdPed].pedido->preco;
+	totalGeral += listaPedido[qtdPed].pedido->total;
+	qtdPed++;
+	printf("\nProduto adicionado com sucesso!\n\n");
+	return listaPedido;
 }
 
-void consultar_carrinho_compras(Pedido* pedido, int qtd){
-	printf("\nIMPLEMENTAR");
+void consultar_carrinho_compras(ListaPedido* listaPedido, int qtd){
+	int i = 0;
+	if(qtd == 0){
+		printf("\n\nPedido se encontra vazio!\n");
+	}
+	printf("\n\nPedido : -- %s", codigo);
+	printf("\n\nItens :\n");
+	for (i = 0; i < qtd; i++){
+		printf("\%s -- Quantidade: %d -- Preco Unitario: %.2f -- Total: %.2f\n", 
+			listaPedido[i].pedido->produto->descricao,
+			listaPedido[i].pedido->quantidade,
+			listaPedido[i].pedido->produto->preco,
+			listaPedido[i].pedido->total
+		);
+	}
+	printf("\nTotal Geral : -- %.2f\n", totalGeral);
+	printf("\n");	
 }
 
 void excluir_produto_carrinho(){
@@ -123,12 +154,14 @@ void gerenciar_menu_pedido(ListaProduto* listaProduto, ListaPedido* listaPedido)
 			case 1:
 				limpar();
 				printf("\nAdicionar produto no carrinho\n\n");
-				adicionar_produto_carrinho(listaProduto, listaPedido);
+				listaPedido = adicionar_produto_carrinho(listaProduto, listaPedido);
+				pausa();
 				break;
 			case 2:
 				limpar();
 				printf("Consultar carrinho de compras");
-				//consultar_carrinho_compras(pedido, qtdPed);
+				consultar_carrinho_compras(listaPedido, qtdPed);
+				pausa();
 				break;								
 			case 3:
 				limpar();
