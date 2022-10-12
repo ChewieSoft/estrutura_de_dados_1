@@ -1,4 +1,6 @@
 #include "configuration.h"
+#include "produto.h"
+#include "pedido.h"
 
 //GERENCIAR
 int menu_principal(){
@@ -40,10 +42,10 @@ void gerenciar_menu_principal(ListaProduto* listaProduto, ListaPedido* listaPedi
 
 //CODIGO
 int main(int argc, char** argv){
-	
+
 	ListaProduto* listaProduto = NULL;
 	ListaPedido* listaPedido = NULL;
-		
+
 	gerenciar_menu_principal(listaProduto, listaPedido);
 	return 0;
 }
