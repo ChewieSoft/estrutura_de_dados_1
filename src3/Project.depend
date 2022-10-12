@@ -1,28 +1,28 @@
 # depslib dependency file v1.0
-1665593328 source:i:\meu drive\pessoal\backup\pc_casa\documents\uva\estrutura de dados 1\a1\estrutura_de_dados_1\src3\configuration.c
+1665611675 source:i:\meu drive\pessoal\backup\pc_casa\documents\uva\estrutura de dados 1\a1\estrutura_de_dados_1\src3\configuration.c
 	"configuration.h"
 
-1665593328 i:\meu drive\pessoal\backup\pc_casa\documents\uva\estrutura de dados 1\a1\estrutura_de_dados_1\src3\configuration.h
+1665613053 i:\meu drive\pessoal\backup\pc_casa\documents\uva\estrutura de dados 1\a1\estrutura_de_dados_1\src3\configuration.h
 	<locale.h>
 	<stdlib.h>
 	<stdio.h>
 	<string.h>
 	<stdbool.h>
 
-1665592634 source:i:\meu drive\pessoal\backup\pc_casa\documents\uva\estrutura de dados 1\a1\estrutura_de_dados_1\src3\produto.c
+1665612457 source:i:\meu drive\pessoal\backup\pc_casa\documents\uva\estrutura de dados 1\a1\estrutura_de_dados_1\src3\produto.c
 	"produto.h"
 
-1665593328 i:\meu drive\pessoal\backup\pc_casa\documents\uva\estrutura de dados 1\a1\estrutura_de_dados_1\src3\produto.h
+1665612457 i:\meu drive\pessoal\backup\pc_casa\documents\uva\estrutura de dados 1\a1\estrutura_de_dados_1\src3\produto.h
 	"configuration.h"
 
-1665593488 source:i:\meu drive\pessoal\backup\pc_casa\documents\uva\estrutura de dados 1\a1\estrutura_de_dados_1\src3\pedido.c
+1665612457 source:i:\meu drive\pessoal\backup\pc_casa\documents\uva\estrutura de dados 1\a1\estrutura_de_dados_1\src3\pedido.c
 	"pedido.h"
 
-1665593328 i:\meu drive\pessoal\backup\pc_casa\documents\uva\estrutura de dados 1\a1\estrutura_de_dados_1\src3\pedido.h
+1665612457 i:\meu drive\pessoal\backup\pc_casa\documents\uva\estrutura de dados 1\a1\estrutura_de_dados_1\src3\pedido.h
 	"configuration.h"
 	"produto.h"
 
-1665593642 source:i:\meu drive\pessoal\backup\pc_casa\documents\uva\estrutura de dados 1\a1\estrutura_de_dados_1\src3\main.c
+1665611675 source:i:\meu drive\pessoal\backup\pc_casa\documents\uva\estrutura de dados 1\a1\estrutura_de_dados_1\src3\main.c
 	"configuration.h"
 	"produto.h"
 	"pedido.h"
