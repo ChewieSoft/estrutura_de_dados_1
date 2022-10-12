@@ -9,8 +9,10 @@
 	<string.h>
 	<stdbool.h>
 
-1665606495 source:i:\meu drive\pessoal\backup\pc_casa\documents\uva\estrutura de dados 1\a1\estrutura_de_dados_1\src3\produto.c
+1665609759 source:i:\meu drive\pessoal\backup\pc_casa\documents\uva\estrutura de dados 1\a1\estrutura_de_dados_1\src3\produto.c
 	"produto.h"
+	"validation.h"
+	<stdbool.h>
 
 1665606111 i:\meu drive\pessoal\backup\pc_casa\documents\uva\estrutura de dados 1\a1\estrutura_de_dados_1\src3\produto.h
 	"configuration.h"
@@ -23,8 +25,16 @@
 	"configuration.h"
 	"produto.h"
 
-1665603780 source:i:\meu drive\pessoal\backup\pc_casa\documents\uva\estrutura de dados 1\a1\estrutura_de_dados_1\src3\main.c
+1665606918 source:i:\meu drive\pessoal\backup\pc_casa\documents\uva\estrutura de dados 1\a1\estrutura_de_dados_1\src3\main.c
 	"configuration.h"
 	"produto.h"
 	"pedido.h"
+
+1665594415 i:\meu drive\pessoal\backup\pc_casa\documents\uva\estrutura de dados 1\a1\estrutura_de_dados_1\src3\validation.h
+	<stdbool.h>
+	<string.h>
+	<ctype.h>
+
+1665593247 source:i:\meu drive\pessoal\backup\pc_casa\documents\uva\estrutura de dados 1\a1\estrutura_de_dados_1\src3\validation.c
+	"validation.h"
 

@@ -1,7 +1,6 @@
 #include "produto.h"
-
-//int qtdProd = 0;
-//int maxProd = 0;
+#include "validation.h"
+#include <stdbool.h>
 
 struct produto{
 	char codigo[10];
@@ -37,10 +36,9 @@ ListaProduto* incluir_produto(ListaProduto* listaProduto, int maxProd, int qtdPr
 	listaProduto[qtdProd].produto = cria_produto();
 	//ADICIONAR
 	printf("Cadastrando produto: %d\n", qtdProd+1);
-	printf("Digite o codigo do produto: ");
-	scanf("%s", listaProduto[qtdProd].produto->codigo);
+    printf("Digite o codigo do produto: ");
+    scanf("%s", listaProduto[qtdProd].produto->codigo);
 	getchar();
-
 	printf("Digite a descricao do produto: ");
 	scanf("%s", listaProduto[qtdProd].produto->descricao);
 	getchar();
