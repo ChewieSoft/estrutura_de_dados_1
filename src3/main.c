@@ -1,6 +1,4 @@
 #include "configuration.h"
-#include "produto.h"
-#include "pedido.h"
 
 //GERENCIAR
 int menu_principal(){

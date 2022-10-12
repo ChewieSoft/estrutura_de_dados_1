@@ -3,6 +3,15 @@
 int ITEM_NAO_ENCONTRADO = -1;
 int REALLOCFACT = 5;
 
+long rand_code(){
+	long n = 0;
+	do{
+	 n *= RAND_MAX;
+	 n += rand();
+	} while(n < 1000000000);
+	return n % 10000000000;
+}
+
 void limpar(){
     #if defined(WIN32) || defined (WIN64)
         system("cls");

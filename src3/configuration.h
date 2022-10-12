@@ -7,6 +7,7 @@
 int ITEM_NAO_ENCONTRADO;
 int REALLOCFACT;
 
+long rand_code();
 void limpar();
 void pausa();
 void sair();

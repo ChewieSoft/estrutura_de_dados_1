@@ -5,7 +5,7 @@ int maxPed = 0;
 
 struct pedido{
 	Produto* produto;
-	int codigo;
+	char codigo[10];
 	int quantidade;
 	float preco;
 	int total;
@@ -24,9 +24,9 @@ void adicionar_produto_carrinho(ListaProduto* listaProduto, ListaPedido* listaPe
 	printf("Produtos Disponiveis\n\n");
 	listar_produtos(listaProduto, qtdProd, false);
 	//SELECIONAR O PRODUTO
-	int codProd;
+	char codProd[10];
 	printf("Digite o codigo do produto desejado! ");
-	scanf("%d", &codProd);
+	scanf("%s", codProd);
 	//VERIFICAR EXISTENCIA
 	int prodResult = buscar_produto_codigo(listaProduto, codProd, false);
 	if(prodResult > ITEM_NAO_ENCONTRADO){
@@ -38,7 +38,7 @@ void adicionar_produto_carrinho(ListaProduto* listaProduto, ListaPedido* listaPe
 		adicionar_produto_carrinho(listaProduto, listaPedido);
 	}
 	
-	//MALLOC PEDIDO
+	//MALLOC LISTAPEDIDO
 	if(maxPed == 0){
 		maxPed = REALLOCFACT;
 		listaPedido = (ListaPedido*) malloc(maxPed * sizeof(ListaPedido));
@@ -47,7 +47,7 @@ void adicionar_produto_carrinho(ListaProduto* listaProduto, ListaPedido* listaPe
 			exit(0);           
 	    }
 	}
-	//REALLOC PEDIDO
+	//REALLOC LISTAPEDIDO
 	if(qtdPed == maxPed){
 		listaPedido = (ListaPedido*) realloc(listaPedido, (maxPed + REALLOCFACT) * sizeof(ListaPedido));
 		if (listaPedido == NULL){
@@ -56,12 +56,15 @@ void adicionar_produto_carrinho(ListaProduto* listaProduto, ListaPedido* listaPe
 	    }
 	    maxPed = maxPed + REALLOCFACT;
 	}
-	
+	//MALLOC PEDIDO
 	listaPedido[qtdPed].pedido = incluir_pedido();
 	
+	//INCLUIR PEDIDO
+	sprintf(listaPedido[qtdPed].pedido->codigo, "%lld", rand_code());
+	//listaPedido[qtdPed].pedido->produto = listaProduto[prodResult].produto;
 	/*
-	pedido[qtdPed].codigo = qtdPed + 1;
-	pedido[qtdPed].produto = prodResult;
+	
+	
 	pedido[qtdPed].preco = 10;
 	
 	printf("Digite a quantidade de produto desejada! ");

@@ -2,6 +2,7 @@
 
 int qtdProd;
 int maxProd;
+
 typedef struct produto Produto;
 typedef struct listaProduto ListaProduto;
 
