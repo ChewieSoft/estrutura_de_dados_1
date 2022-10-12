@@ -4,7 +4,7 @@ int qtdProd = 0;
 int maxProd = 0;
 
 struct produto{
-	int codigo;
+	char codigo[10];
 	char descricao[50];
 	int qtd_estoque;
 	float preco;
@@ -38,7 +38,7 @@ ListaProduto* incluir_produto(ListaProduto* listaProduto){
 	//ADICIONAR
 	printf("Cadastrando produto: %d\n", qtdProd+1);
 	printf("Digite o codigo do produto: ");
-	scanf("%d", &listaProduto[qtdProd].produto->codigo);
+	scanf("%s", listaProduto[qtdProd].produto->codigo);
 	getchar();
 	
 	printf("Digite a descricao do produto: ");
@@ -62,10 +62,10 @@ ListaProduto* incluir_produto(ListaProduto* listaProduto){
 }
 
 void alterar_produto(ListaProduto* listaProduto){
-	int codProd;
+	char codProd[10];
 	int index = 0;
 	printf("Por favor, digite o codigo do produto desejado. ");
-	scanf("%d", &codProd);
+	scanf("%s", codProd);
 	index = buscar_produto_codigo(listaProduto, codProd, true);
 	if(index == ITEM_NAO_ENCONTRADO){
 		printf("\nItem nao encontrado!!!\n\n");
@@ -75,7 +75,7 @@ void alterar_produto(ListaProduto* listaProduto){
 	int opcao;
 	int sair = 0;
 	do{
-		printf("\nInformacoes do produto:\n Codigo: %d\n Descricao: %s\n Quantidade em estoque: %d\n Preco: %.2f\n",
+		printf("\nInformacoes do produto:\n Codigo: %s\n Descricao: %s\n Quantidade em estoque: %d\n Preco: %.2f\n",
 			listaProduto[index].produto->codigo,
 			listaProduto[index].produto->descricao,
 			listaProduto[index].produto->qtd_estoque,
@@ -92,7 +92,7 @@ void alterar_produto(ListaProduto* listaProduto){
 		switch(opcao){
 			case 1:
 				printf("\nDigite o novo codigo do produto: ");
-				scanf("%d", &listaProduto[index].produto->codigo);
+				scanf("%s", listaProduto[index].produto->codigo);
 				getchar();
 				printf("\nAlterado com sucesso!\n");
 				pausa();
@@ -141,7 +141,7 @@ void listar_produtos(ListaProduto* listaProduto, int qtd, bool isVazio){
 	}
 	for (i = 0; i < qtd; i++){
 		if(isVazio){
-			printf("Produto : -- Codigo: %d -- Descricao: %s -- Quantidade em estoque: %d -- Preco: %.2f\n", 
+			printf("Produto : -- Codigo: %s -- Descricao: %s -- Quantidade em estoque: %d -- Preco: %.2f\n", 
 				listaProduto[i].produto->codigo,
 				listaProduto[i].produto->descricao,
 				listaProduto[i].produto->qtd_estoque,
@@ -149,7 +149,7 @@ void listar_produtos(ListaProduto* listaProduto, int qtd, bool isVazio){
 			);
 		}
 		else if(listaProduto[i].produto->qtd_estoque > 0){			
-			printf("Produto : -- Codigo: %d -- Descricao: %s -- Quantidade em estoque: %d -- Preco: %.2f\n", 
+			printf("Produto : -- Codigo: %s -- Descricao: %s -- Quantidade em estoque: %d -- Preco: %.2f\n", 
 				listaProduto[i].produto->codigo,
 				listaProduto[i].produto->descricao,
 				listaProduto[i].produto->qtd_estoque,
@@ -160,11 +160,11 @@ void listar_produtos(ListaProduto* listaProduto, int qtd, bool isVazio){
 	printf("\n");
 }
 
-int buscar_produto_codigo(ListaProduto* listaProduto, int codigo, bool isVazio){
+int buscar_produto_codigo(ListaProduto* listaProduto, char codigo[10], bool isVazio){
 	int i = 0;
 	int retorno = ITEM_NAO_ENCONTRADO;
 	for(i=0; i<qtdProd; i++){
-		if(listaProduto[i].produto->codigo == codigo){
+		if(!strcmp(listaProduto[i].produto->codigo, codigo)){
 			if(isVazio){
 				return i;
 			}
@@ -178,9 +178,9 @@ int buscar_produto_codigo(ListaProduto* listaProduto, int codigo, bool isVazio){
 
 void consultar_produto(ListaProduto* listaProduto, int index){
 	if(index == ITEM_NAO_ENCONTRADO){
-		int codProd;
+		char codProd[10];
 		printf("Por favor, digite o codigo do produto desejado. ");
-		scanf("%d", &codProd);
+		scanf("%s", codProd);
 		index = buscar_produto_codigo(listaProduto, codProd, true);
 		if(index == ITEM_NAO_ENCONTRADO){
 			printf("\nItem nao encontrado!!!\n\n");
@@ -188,7 +188,7 @@ void consultar_produto(ListaProduto* listaProduto, int index){
 			return;
 		}			
 	}
-	printf("\nInformacoes do produto:\n Codigo: %d\n Descricao: %s\n Quantidade em estoque: %d\n Preco: %.2f\n\n", 
+	printf("\nInformacoes do produto:\n Codigo: %s\n Descricao: %s\n Quantidade em estoque: %d\n Preco: %.2f\n\n", 
 		listaProduto[index].produto->codigo,
 		listaProduto[index].produto->descricao,
 		listaProduto[index].produto->qtd_estoque,
@@ -198,10 +198,10 @@ void consultar_produto(ListaProduto* listaProduto, int index){
 }
 
 void excluir_produto(ListaProduto* listaProduto){
-	int codProd;
+	char codProd[10];
 	int index = 0;
 	printf("Por favor, digite o codigo do produto desejado. ");
-	scanf("%d", &codProd);
+	scanf("%s", codProd);
 	index = buscar_produto_codigo(listaProduto, codProd, true);
 	if(index == ITEM_NAO_ENCONTRADO){
 		printf("\nItem nao encontrado!!!\n\n");
@@ -217,7 +217,7 @@ void excluir_produto(ListaProduto* listaProduto){
 		pausa();
 	}
 	else{
-		listaProduto[index].produto->codigo = listaProduto[qtdProd - 1].produto->codigo;
+		strcpy(listaProduto[index].produto->codigo, listaProduto[qtdProd - 1].produto->codigo);
 		strcpy(listaProduto[index].produto->descricao, listaProduto[qtdProd - 1].produto->descricao);
 		listaProduto[index].produto->qtd_estoque = listaProduto[qtdProd - 1].produto->qtd_estoque;
 		listaProduto[index].produto->preco = listaProduto[qtdProd - 1].produto->preco;
