@@ -2,6 +2,9 @@
 #include "produto.h"
 #include "pedido.h"
 
+int lista[2000] = {0};
+
+
 //GERENCIAR
 int menu_principal(){
 	int opcao = 0;
@@ -40,11 +43,35 @@ void gerenciar_menu_principal(ListaProduto* listaProduto, ListaPedido* listaPedi
 	}while(!sair);
 }
 
+void load_database(char *file_name)
+{	
+	int counter = 0;
+	FILE *file;
+	char line[100];
+	
+	file = fopen(file_name, "r");	
+	if(file == NULL){
+		printf("Data base does not exist.");
+		exit(EXIT_SUCCESS);
+	}		 
+	while(fgets(line, 100, file) != NULL)
+	{
+		char *item = strtok(line, " ");				
+		lista[counter] = strtol(item, NULL, 0);		
+		counter++;
+	}
+	fclose(file);		
+}
+
+
+
 //CODIGO
 int main(int argc, char** argv){
 
-	ListaProduto* listaProduto = NULL;
 	ListaPedido* listaPedido = NULL;
+	ListaProduto* listaProduto = NULL;
+
+	load_database("produtos.db");
 
 	gerenciar_menu_principal(listaProduto, listaPedido);
 	return 0;
