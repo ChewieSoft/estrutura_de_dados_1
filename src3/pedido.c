@@ -154,18 +154,24 @@ void excluir_produto_carrinho(ListaPedido* listaPedido){
 	printf("\nProduto excluido com sucesso\n\n");
 }
 
-void alterar_quantidade_produto_carrinho(ListaPedido* listaPedido){
+void alterar_quantidade_produto_carrinho(ListaProduto* listaProduto, ListaPedido* listaPedido){
 	consultar_carrinho_compras(listaPedido, qtdPed);
 	char codProd[10];
 	int index = 0;
 	printf("Por favor, digite o codigo do produto desejado. ");
 	scanf("%s", codProd);
 	index = buscar_produto_codigo_pedido(listaPedido, codProd);
+	int prodResult = buscar_produto_codigo(listaProduto, codProd, false);
 	if(index == ITEM_NAO_ENCONTRADO){
 		printf("\nItem nao encontrado!!!\n\n");
-		pausa();
 		return;
-	}
+	}	
+	//VERIFICAR QUANTIDADE DISPONIVEL
+	int quantidadeNova = 0;
+	do{
+		printf("\nDigite a quantidade de produto desejada! ");
+		scanf("%d", &quantidadeNova);
+	}while(!consulta_disponibilidade(listaProduto, prodResult, quantidadeNova));
 }
 
 void finalizar_pedido(){
@@ -222,7 +228,7 @@ void gerenciar_menu_pedido(ListaProduto* listaProduto, ListaPedido* listaPedido)
 			case 4:
 				limpar();
 				printf("Alterar quantidade do produto do carrinho");
-				alterar_quantidade_produto_carrinho(listaPedido);
+				alterar_quantidade_produto_carrinho(listaProduto, listaPedido);
 				pausa();
 				break;
 			case 5:
