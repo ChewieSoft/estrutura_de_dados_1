@@ -4,8 +4,8 @@
 #include <string.h>
 #include <stdbool.h>
 
-int ITEM_NAO_ENCONTRADO;
-int REALLOCFACT;
+#define ITEM_NAO_ENCONTRADO -1
+#define REALLOCFACT 5
 
 long rand_code();
 void limpar();

@@ -1,4 +1,5 @@
 #include "pedido.h"
+#include "produto.h"
 
 int qtdPed = 0;
 int maxPed = 0;
@@ -19,7 +20,7 @@ Pedido* incluir_pedido(){
 	return (Pedido*) malloc(sizeof(Pedido));
 }
 
-void adicionar_produto_carrinho(ListaProduto* listaProduto, ListaPedido* listaPedido){
+void adicionar_produto_carrinho(ListaProduto* listaProduto, int qtdProd, ListaPedido* listaPedido){
 	//LISTAR PRODUTOS DISPONIVEIS
 	printf("Produtos Disponiveis\n\n");
 	listar_produtos(listaProduto, qtdProd, false);
@@ -28,14 +29,14 @@ void adicionar_produto_carrinho(ListaProduto* listaProduto, ListaPedido* listaPe
 	printf("Digite o codigo do produto desejado! ");
 	scanf("%s", codProd);
 	//VERIFICAR EXISTENCIA
-	int prodResult = buscar_produto_codigo(listaProduto, codProd, false);
+	int prodResult = buscar_produto_codigo(listaProduto, qtdProd, codProd, false);
 	if(prodResult > ITEM_NAO_ENCONTRADO){
-		consultar_produto(listaProduto, prodResult);
+		consultar_produto(listaProduto, prodResult, qtdProd);
 	}else{
 		printf("\n\nPRODUTO NAO ENCONTRADO\n\n");
 		pausa();
 		limpar();
-		adicionar_produto_carrinho(listaProduto, listaPedido);
+		adicionar_produto_carrinho(listaProduto, qtdProd, listaPedido);
 	}
 
 	//MALLOC LISTAPEDIDO
@@ -113,7 +114,7 @@ int menu_pedido(){
 	return opcao;
 }
 
-void gerenciar_menu_pedido(ListaProduto* listaProduto, ListaPedido* listaPedido){
+void gerenciar_menu_pedido(ListaProduto* listaProduto, int qtdProd, ListaPedido* listaPedido){
 	int opcao;
 	int sair = 0;
 	limpar();
@@ -123,7 +124,7 @@ void gerenciar_menu_pedido(ListaProduto* listaProduto, ListaPedido* listaPedido)
 			case 1:
 				limpar();
 				printf("\nAdicionar produto no carrinho\n\n");
-				adicionar_produto_carrinho(listaProduto, listaPedido);
+				adicionar_produto_carrinho(listaProduto, qtdProd, listaPedido);
 				break;
 			case 2:
 				limpar();

@@ -4,12 +4,12 @@
 	<Project>
 		<Option title="Project" />
 		<Option pch_mode="2" />
-		<Option compiler="gcc" />
+		<Option compiler="cygwin" />
 		<Build>
 			<Target title="default">
 				<Option output="Project" prefix_auto="1" extension_auto="1" />
 				<Option type="1" />
-				<Option compiler="gcc" />
+				<Option compiler="cygwin" />
 			</Target>
 		</Build>
 		<Unit filename="configuration.c">
@@ -33,6 +33,8 @@
 		<Unit filename="produto.h">
 			<Option compilerVar="CC" />
 		</Unit>
-		<Extensions />
+		<Extensions>
+			<lib_finder disable_auto="1" />
+		</Extensions>
 	</Project>
 </CodeBlocks_project_file>
