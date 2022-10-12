@@ -51,14 +51,14 @@ ListaPedido* adicionar_produto_carrinho(ListaProduto* listaProduto, ListaPedido*
 		limpar();
 		adicionar_produto_carrinho(listaProduto, listaPedido);
 	}
-	
+
 	//MALLOC LISTAPEDIDO
 	if(maxPed == 0){
 		maxPed = REALLOCFACT;
 		listaPedido = (ListaPedido*) malloc(maxPed * sizeof(ListaPedido));
 		if (listaPedido == NULL){
 			printf("\n\nMemoria insuficiente\n\n");
-			exit(0);           
+			exit(0);
 	    }
 	}
 	//REALLOC LISTAPEDIDO
@@ -66,13 +66,13 @@ ListaPedido* adicionar_produto_carrinho(ListaProduto* listaProduto, ListaPedido*
 		listaPedido = (ListaPedido*) realloc(listaPedido, (maxPed + REALLOCFACT) * sizeof(ListaPedido));
 		if (listaPedido == NULL){
 			printf("\n\nMemoria insuficiente\n\n");
-			exit(0);           
+			exit(0);
 	    }
 	    maxPed = maxPed + REALLOCFACT;
 	}
 	//MALLOC PEDIDO
 	listaPedido[qtdPed].pedido = incluir_pedido();
-	
+
 	//INCLUIR PEDIDO
 	sprintf(codigo, "%lld", rand_code());
 	listaPedido[qtdPed].pedido->produto = listaProduto[prodResult].produto;
@@ -135,8 +135,8 @@ int menu_pedido(){
 	printf("\n(1) Adicionar produto no carrinho");
 	printf("\n(2) Consultar carrinho de compras");
 	printf("\n(3) Excluir produto do carrinho");
-	printf("\n(4) Alterar quantidade do produto do carrinho");	
-	printf("\n(5) Finalizar Pedido");	
+	printf("\n(4) Alterar quantidade do produto do carrinho");
+	printf("\n(5) Finalizar Pedido");
 	printf("\n(6) Esvaziar carrinho de compras");
 	printf("\n(7) Voltar");
 	printf("\n\nSelecionar opcao: ");
@@ -148,8 +148,8 @@ void gerenciar_menu_pedido(ListaProduto* listaProduto, ListaPedido* listaPedido)
 	int opcao;
 	int sair = 0;
 	limpar();
-	do{	
-		opcao = menu_pedido();		
+	do{
+		opcao = menu_pedido();
 		switch(opcao){
 			case 1:
 				limpar();
@@ -177,18 +177,18 @@ void gerenciar_menu_pedido(ListaProduto* listaProduto, ListaPedido* listaPedido)
 				limpar();
 				printf("Finalizar Pedido");
 				//finalizar_pedido();
-				break;								
+				break;
 			case 6:
 				limpar();
 				printf("Esvaziar carrinho de compras");
 				//esvaziar_carrinho(pedido);
-				break;								
+				break;
 			case 7:
 				sair = 1;
 				break;
 			default:
 				printf("Opcao Invalida!\n\n");
-				sair = 0;			
+				sair = 0;
 		}
 	}while(!sair);
 }
