@@ -24,7 +24,7 @@ void gerenciar_menu_principal(Produto* produto, Pedido* pedido){
 		opcao = menu_principal();
 		switch(opcao){
 			case 1:
-				gerenciar_menu_produto(produto);
+				produto = gerenciar_menu_produto(produto);
 				break;
 			case 2:
 				gerenciar_menu_pedido(produto, pedido);

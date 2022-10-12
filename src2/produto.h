@@ -12,4 +12,4 @@ void consultar_produto(Produto* produto, int index);
 void excluir_produto(Produto* produto);
 
 int menu_produto();
-void gerenciar_menu_produto(Produto* produto);
+Produto* gerenciar_menu_produto(Produto* produto);
