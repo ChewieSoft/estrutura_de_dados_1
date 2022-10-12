@@ -28,8 +28,8 @@ Folders=
 IncludeVersionInfo=0
 SupportXPThemes=0
 CompilerSet=0
-CompilerSettings=0000000000000000001000000
-UnitCount=12
+CompilerSettings=00000000a0000000000000000
+UnitCount=5
 
 [VersionInfo]
 Major=1
@@ -81,9 +81,9 @@ OverrideBuildCmd=0
 BuildCmd=
 
 [Unit5]
-FileName=menu.h
+FileName=produto.c
 CompileCpp=0
-Folder=Project
+Folder=
 Compile=1
 Link=1
 Priority=1000
@@ -130,8 +130,8 @@ Priority=1000
 OverrideBuildCmd=0
 BuildCmd=
 
-[Unit4]
-FileName=menu.c
+[Unit10]
+FileName=produto.h
 CompileCpp=0
 Folder=Project
 Compile=1
@@ -140,28 +140,8 @@ Priority=1000
 OverrideBuildCmd=0
 BuildCmd=
 
-[Unit12]
-FileName=adt_sample\adt_main.c
-CompileCpp=0
-Folder=
-Compile=1
-Link=1
-Priority=1000
-OverrideBuildCmd=0
-BuildCmd=
-
-[Unit10]
-FileName=adt_sample\adt_sample.c
-CompileCpp=0
-Folder=
-Compile=1
-Link=1
-Priority=1000
-OverrideBuildCmd=0
-BuildCmd=
-
-[Unit11]
-FileName=adt_sample\adt_sample.h
+[Unit4]
+FileName=produto.h
 CompileCpp=0
 Folder=
 Compile=1
