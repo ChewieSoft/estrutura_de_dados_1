@@ -16,7 +16,7 @@ int menu_principal(){
 	return opcao;
 }
 
-void gerenciar_menu_principal(ListaProduto* listaProduto, Pedido* pedido){
+void gerenciar_menu_principal(ListaProduto* listaProduto, ListaPedido* listaPedido){
 	int opcao;
 	int sair = 0;
 	do{
@@ -27,7 +27,7 @@ void gerenciar_menu_principal(ListaProduto* listaProduto, Pedido* pedido){
 				listaProduto = gerenciar_menu_produto(listaProduto);
 				break;
 			case 2:
-				//gerenciar_menu_pedido(produto, pedido);
+				gerenciar_menu_pedido(listaProduto, listaPedido);
 				break;
 			case 3:
 				limpar();
@@ -44,8 +44,8 @@ void gerenciar_menu_principal(ListaProduto* listaProduto, Pedido* pedido){
 int main(int argc, char** argv){
 	
 	ListaProduto* listaProduto = NULL;
-	Pedido* pedidos = NULL;
+	ListaPedido* listaPedido = NULL;
 		
-	gerenciar_menu_principal(listaProduto, pedidos);
+	gerenciar_menu_principal(listaProduto, listaPedido);
 	return 0;
 }
