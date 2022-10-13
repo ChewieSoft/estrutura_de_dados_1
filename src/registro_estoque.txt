@@ -1,0 +1,3 @@
+a, Banana Prata, 10, 5.00; 
+b, Abacaxi, 10, 5.40; 
+c, Laranja Pera, 10, 4.55; 

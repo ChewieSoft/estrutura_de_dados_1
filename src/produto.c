@@ -14,6 +14,23 @@ struct listaProduto{
 	Produto* produto;
 };
 
+void export_prod(ListaProduto* listaProduto){
+	FILE *estoque; //criando arquivo estoque
+	estoque = fopen("registro_estoque.txt", "w"); //abrir e/ou criar o arquivo txt do estoque	
+	if(estoque == NULL){		
+		printf("Erro ao gerar os dados do estoque");
+		return 1;			
+	}
+	int i = 0;		
+	for (i=0; i<qtdProd;i++){ //estrutura de repetição para armazenar os dados dos produtos no txt base de dados do estoque
+		fprintf(estoque, "%s, ", listaProduto[i].produto->codigo);
+		fprintf(estoque, "%s, ", listaProduto[i].produto->descricao);
+		fprintf(estoque, "%d, ", listaProduto[i].produto->qtd_estoque);
+		fprintf(estoque, "%.2f; \n", listaProduto[i].produto->preco);
+	}
+	fclose(estoque);
+}
+
 ListaProduto* kill_produto(ListaProduto* listaProduto){
 	int pro = 0;
 	for(pro = 0; pro < qtdProd; pro++){
@@ -58,11 +75,11 @@ ListaProduto* incluir_produto(ListaProduto* listaProduto){
 	//ADICIONAR
 	printf("Cadastrando produto: %d\n", qtdProd+1);
 	printf("Digite o codigo do produto: ");
-	scanf("%s",listaProduto[qtdProd].produto->codigo);
+	scanf(" %[^\n]",listaProduto[qtdProd].produto->codigo);
 	getchar();
 	
 	printf("Digite a descricao do produto: ");
-	scanf("%s",listaProduto[qtdProd].produto->descricao);
+	scanf(" %[^\n]",listaProduto[qtdProd].produto->descricao);
 	getchar();
 	
 	printf("Digite a quantidade inicial do produto em estoque: ");
@@ -112,7 +129,7 @@ void alterar_produto(ListaProduto* listaProduto){
 		switch(opcao){
 			case 1:
 				printf("\nDigite o novo codigo do produto: ");
-				scanf("%s", listaProduto[index].produto->codigo);
+				scanf(" %[^\n]", listaProduto[index].produto->codigo);
 				getchar();
 				printf("\nAlterado com sucesso!\n");
 				pausa();
@@ -120,7 +137,7 @@ void alterar_produto(ListaProduto* listaProduto){
 				break;
 			case 2:
 				printf("Digite a nova descricao do produto: ");
-				scanf("%s", listaProduto[index].produto->descricao);
+				scanf(" %[^\n]", listaProduto[index].produto->descricao);
 				getchar();
 				printf("\nAlterado com sucesso!\n");
 				pausa();
@@ -302,6 +319,7 @@ ListaProduto* gerenciar_menu_produto(ListaProduto* listaProduto){
 			case 6:
 				sair = 1;
 				pausa();
+				export_prod(listaProduto);
 				return listaProduto;
 				break;
 			default:

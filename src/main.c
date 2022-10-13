@@ -33,7 +33,7 @@ void gerenciar_menu_principal(ListaProduto* listaProduto, ListaPedido* listaPedi
 			case 3:
 				listaProduto = kill_produto(listaProduto);
 				listaPedido = kill_pedido(listaPedido);
-				printf("/nRESETADO COM SUCESSO!!!\n");
+				printf("\nRESETADO COM SUCESSO!!!\n");
 				pausa();
 				break;
 			case 4:
