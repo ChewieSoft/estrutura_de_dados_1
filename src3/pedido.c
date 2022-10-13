@@ -172,6 +172,12 @@ void alterar_quantidade_produto_carrinho(ListaProduto* listaProduto, ListaPedido
 		printf("\nDigite a quantidade de produto desejada! ");
 		scanf("%d", &quantidadeNova);
 	}while(!consulta_disponibilidade(listaProduto, prodResult, quantidadeNova));
+	
+	//ACERTAR VALORES
+	totalGeral -= listaPedido[index].pedido->total;
+	listaPedido[index].pedido->quantidade = quantidadeNova;
+	listaPedido[index].pedido->total = listaPedido[index].pedido->quantidade * listaPedido[index].pedido->preco;
+	totalGeral += listaPedido[index].pedido->total;
 }
 
 void finalizar_pedido(){

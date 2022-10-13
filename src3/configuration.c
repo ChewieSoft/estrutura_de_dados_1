@@ -1,8 +1,5 @@
 #include "configuration.h"
 
-const int REALLOCFACT = 5;
-const int ITEM_NAO_ENCONTRADO = -1;
-
 long rand_code(){
 	long n = 0;
 	do{

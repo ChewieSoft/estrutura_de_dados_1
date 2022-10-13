@@ -4,7 +4,6 @@
 
 int lista[2000] = {0};
 
-
 //GERENCIAR
 int menu_principal(){
 	int opcao = 0;
@@ -62,8 +61,6 @@ void load_database(char *file_name)
 	}
 	fclose(file);		
 }
-
-
 
 //CODIGO
 int main(int argc, char** argv){
