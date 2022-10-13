@@ -14,6 +14,32 @@ struct listaProduto{
 	Produto* produto;
 };
 
+void save_prod(ListaProduto* listaProduto){
+	FILE* out;
+	out = fopen("produtos.db", "w");
+	if(out == NULL){
+		printf("\n\nArquivo de produtos não encontrato!\n\n");
+		exit(1);
+	}
+	int i = 0;
+	Produto p = {"abc", "Abacaxi", 50, 9.99};
+	fwrite(&p, sizeof(Produto),1,out);
+	fclose(out);
+}
+
+void load_prod(){
+	FILE* in;
+	in = fopen("produtos.db", "r");
+	if(in == NULL){
+		printf("\n\nArquivo de produtos não encontrato!\n\n");
+		exit(1);
+	}
+	Produto p;
+	while(fread(&p, sizeof(Produto),1,in)){
+		printf(p.descricao);
+	}
+}
+
 ListaProduto* kill_produto(ListaProduto* listaProduto){
 	int pro = 0;
 	for(pro = 0; pro < qtdProd; pro++){
@@ -300,7 +326,10 @@ ListaProduto* gerenciar_menu_produto(ListaProduto* listaProduto){
 				excluir_produto(listaProduto);
 				break;								
 			case 6:
-				sair = 1;				
+				sair = 1;
+				save_prod(listaProduto);
+				load_prod();
+				pausa();
 				return listaProduto;
 				break;
 			default:

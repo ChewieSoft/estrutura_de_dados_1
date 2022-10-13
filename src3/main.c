@@ -73,7 +73,7 @@ int main(int argc, char** argv){
 	ListaPedido* listaPedido = NULL;
 	ListaProduto* listaProduto = NULL;
 
-	load_database("produtos.db");
+	//load_database("produtos.db");
 
 	gerenciar_menu_principal(listaProduto, listaPedido);
 	return 0;
