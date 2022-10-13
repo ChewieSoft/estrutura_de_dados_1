@@ -10,7 +10,7 @@ Jorge Luis de Oliveira Ferrari | 20171104864<br>
 Hamilton Fuzer de Oliveira | 20152102906<br>
 
 
-## Menu Inicial do HORTIFRUTI
+# Menu Inicial do HORTIFRUTI
 
 ```
 #########################
@@ -20,6 +20,23 @@ Hamilton Fuzer de Oliveira | 20152102906<br>
 (2) Gerenciar Pedido
 (3) RESETAR
 (4) Sair
+
+Selecionar opcao:
+```
+
+## Produto
+
+```
+#########################
+    Gerenciar Produto
+#########################
+
+(1) Incluir
+(2) Alterar
+(3) Listar
+(4) Consultar
+(5) Excluir
+(6) Voltar
 
 Selecionar opcao:
 ```
