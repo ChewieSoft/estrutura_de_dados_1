@@ -4,9 +4,10 @@
 #include <string.h>
 #include <stdbool.h>
 
-int ITEM_NAO_ENCONTRADO;
-int REALLOCFACT;
+const int REALLOCFACT;
+const int ITEM_NAO_ENCONTRADO;
 
+long rand_code();
 void limpar();
 void pausa();
 void sair();

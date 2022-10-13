@@ -4,89 +4,191 @@ int qtdProd = 0;
 int maxProd = 0;
 
 struct produto{
-	int codigo;
+	char codigo[10];
 	char descricao[50];
 	int qtd_estoque;
 	float preco;
 };
 
-Produto* incluir_produto(Produto* produto){
+struct listaProduto{
+	Produto* produto;
+};
+
+ListaProduto* kill_produto(ListaProduto* listaProduto){
+	int pro = 0;
+	for(pro = 0; pro < qtdProd; pro++){
+		free(listaProduto[pro].produto);
+	}
+	qtdProd = 0;
+	maxProd = REALLOCFACT;
+	listaProduto = (ListaProduto*) realloc(listaProduto, REALLOCFACT * sizeof(ListaProduto));
+}
+
+bool consulta_disponibilidade(ListaProduto* listaProduto, int index, int qtd){
+	if(listaProduto[index].produto->qtd_estoque >= qtd){
+		return true;
+	}
+	else{
+		printf("\nQuantidade informada indisponivel!\n");
+		return false;
+	}
+}
+
+Produto* cria_produto(){
+	return (Produto*) malloc(sizeof(Produto));
+}
+
+ListaProduto* incluir_produto(ListaProduto* listaProduto){
+	//MALLOC LISTA
 	if(maxProd == 0){
 		maxProd = REALLOCFACT;
-		produto = (Produto*) malloc(maxProd * sizeof(Produto));
+		listaProduto = (ListaProduto*) malloc(maxProd * sizeof(ListaProduto));
 	}
+	//REALLOC LISTA
 	if(qtdProd == maxProd){
-		produto = (Produto*) realloc(produto, (maxProd + REALLOCFACT) * sizeof(Produto));
-		if (produto == NULL){
+		listaProduto = (ListaProduto*) realloc(listaProduto, (maxProd + REALLOCFACT) * sizeof(ListaProduto));
+		if (listaProduto == NULL){
 			printf("\n\nMemoria insuficiente\n\n");
 			exit(0);           
 	    }
 		maxProd = maxProd + REALLOCFACT;
 	}
+	//MALLOC PARA O PRODUTO
+	listaProduto[qtdProd].produto = cria_produto();
+	//ADICIONAR
 	printf("Cadastrando produto: %d\n", qtdProd+1);
 	printf("Digite o codigo do produto: ");
-	scanf("%d", &produto[qtdProd].codigo);
+	scanf("%s",listaProduto[qtdProd].produto->codigo);
 	getchar();
 	
 	printf("Digite a descricao do produto: ");
-	scanf("%s", produto[qtdProd].descricao); 
+	scanf("%s",listaProduto[qtdProd].produto->descricao);
 	getchar();
 	
 	printf("Digite a quantidade inicial do produto em estoque: ");
-	scanf("%d", &produto[qtdProd].qtd_estoque);
+	scanf("%d", &listaProduto[qtdProd].produto->qtd_estoque);
 	getchar();
 	
 	printf("Digite o preco do produto: ");
-	scanf("%f", &produto[qtdProd].preco);
+	scanf("%f", &listaProduto[qtdProd].produto->preco);
 	getchar();
 	
 	printf("\nProduto cadastrado com sucesso\n");
-	consultar_produto(produto, qtdProd);
+	consultar_produto(listaProduto, qtdProd);
 	limpar();
 	qtdProd++;
 	
-	return produto;
+	return listaProduto;
 }
 
-void alterar_produto(Produto* produto){
-	printf("IMPLEMENTAR\n\n");
+void alterar_produto(ListaProduto* listaProduto){
+	char codProd[10];
+	int index = 0;
+	printf("Por favor, digite o codigo do produto desejado. ");
+	scanf("%s", codProd);
+	index = buscar_produto_codigo(listaProduto, codProd, true);
+	if(index == ITEM_NAO_ENCONTRADO){
+		printf("\nItem nao encontrado!!!\n\n");
+		return;
+	}
+	//ALTERACAO
+	int opcao;
+	int sair = 0;
+	do{
+		printf("\nInformacoes do produto:\n Codigo: %s\n Descricao: %s\n Quantidade em estoque: %d\n Preco: %.2f\n",
+			listaProduto[index].produto->codigo,
+			listaProduto[index].produto->descricao,
+			listaProduto[index].produto->qtd_estoque,
+			listaProduto[index].produto->preco
+		);
+		printf("\nQual informacao voce deseja editar ?");
+		printf("\n(1) Codigo");
+		printf("\n(2) Descricao");
+		printf("\n(3) Quantidade em estoque");
+		printf("\n(4) Preco");
+		printf("\n(5) Sair");
+		printf("\n\nSelecionar opcao: ");
+		scanf("%d", &opcao);
+		switch(opcao){
+			case 1:
+				printf("\nDigite o novo codigo do produto: ");
+				scanf("%s", listaProduto[index].produto->codigo);
+				getchar();
+				printf("\nAlterado com sucesso!\n");
+				pausa();
+				limpar();
+				break;
+			case 2:
+				printf("Digite a nova descricao do produto: ");
+				scanf("%s", listaProduto[index].produto->descricao);
+				getchar();
+				printf("\nAlterado com sucesso!\n");
+				pausa();
+				limpar();
+				break;
+			case 3:
+				printf("Digite a nova quantidade do produto em estoque: ");
+				scanf("%d", &listaProduto[index].produto->qtd_estoque);
+				getchar();
+				printf("\nAlterado com sucesso!\n");
+				pausa();
+				limpar();
+				break;
+			case 4:
+				printf("Digite o novo preco do produto: ");
+				scanf("%f", &listaProduto[index].produto->preco);
+				getchar();
+				printf("\nAlterado com sucesso!\n");
+				pausa();
+				limpar();
+				break;
+			case 5:
+				sair = 1;
+				break;
+			default:
+				printf("\nOpcao Invalida!!!\n\n");
+				pausa();
+				limpar();
+				sair = 0;
+		}
+	}while(!sair);
 }
 
-void listar_produtos(Produto* produto, int qtd, bool isVazio){
+void listar_produtos(ListaProduto* listaProduto, int qtd, bool isVazio){
 	int i = 0;
 	if(qtd == 0){
 		printf("Lista se encontra vazia!\n");
 	}
 	for (i = 0; i < qtd; i++){
 		if(isVazio){
-			printf("Produto : -- Codigo: %d -- Descricao: %s -- Quantidade em estoque: %d -- Preco: %.2f\n", 
-				produto[i].codigo,
-				produto[i].descricao,
-				produto[i].qtd_estoque,
-				produto[i].preco
+			printf("Produto : -- Codigo: %s -- Descricao: %s -- Quantidade em estoque: %d -- Preco: %.2f\n", 
+				listaProduto[i].produto->codigo,
+				listaProduto[i].produto->descricao,
+				listaProduto[i].produto->qtd_estoque,
+				listaProduto[i].produto->preco
 			);
 		}
-		else if(produto[i].qtd_estoque > 0){			
-			printf("Produto : -- Codigo: %d -- Descricao: %s -- Quantidade em estoque: %d -- Preco: %.2f\n", 
-				produto[i].codigo,
-				produto[i].descricao,
-				produto[i].qtd_estoque,
-				produto[i].preco
+		else if(listaProduto[i].produto->qtd_estoque > 0){			
+			printf("Produto : -- Codigo: %s -- Descricao: %s -- Quantidade em estoque: %d -- Preco: %.2f\n", 
+				listaProduto[i].produto->codigo,
+				listaProduto[i].produto->descricao,
+				listaProduto[i].produto->qtd_estoque,
+				listaProduto[i].produto->preco
 			);
-		}		
+		}
 	}
 	printf("\n");
 }
 
-int buscar_produto_codigo(Produto* produto, int codigo, bool isVazio){
+int buscar_produto_codigo(ListaProduto* listaProduto, char codigo[10], bool isVazio){
 	int i = 0;
 	int retorno = ITEM_NAO_ENCONTRADO;
 	for(i=0; i<qtdProd; i++){
-		if(produto[i].codigo == codigo){
+		if(!strcmp(listaProduto[i].produto->codigo, codigo)){
 			if(isVazio){
 				return i;
 			}
-			else if(produto[i].qtd_estoque > 0){
+			else if(listaProduto[i].produto->qtd_estoque > 0){
 				return i;
 			}
 		}
@@ -94,33 +196,33 @@ int buscar_produto_codigo(Produto* produto, int codigo, bool isVazio){
 	return retorno;
 }
 
-void consultar_produto(Produto* produto, int index){
+void consultar_produto(ListaProduto* listaProduto, int index){
 	if(index == ITEM_NAO_ENCONTRADO){
-		int codProd;
+		char codProd[10];
 		printf("Por favor, digite o codigo do produto desejado. ");
-		scanf("%d", &codProd);
-		index = buscar_produto_codigo(produto, codProd, true);
+		scanf("%s", codProd);
+		index = buscar_produto_codigo(listaProduto, codProd, true);
 		if(index == ITEM_NAO_ENCONTRADO){
 			printf("\nItem nao encontrado!!!\n\n");
 			pausa();
 			return;
 		}			
 	}
-	printf("\nInformacoes do produto:\n Codigo: %d\n Descricao: %s\n Quantidade em estoque: %d\n Preco: %.2f\n\n", 
-		produto[index].codigo,
-		produto[index].descricao,
-		produto[index].qtd_estoque,
-		produto[index].preco
+	printf("\nInformacoes do produto:\n Codigo: %s\n Descricao: %s\n Quantidade em estoque: %d\n Preco: %.2f\n\n", 
+		listaProduto[index].produto->codigo,
+		listaProduto[index].produto->descricao,
+		listaProduto[index].produto->qtd_estoque,
+		listaProduto[index].produto->preco
 	);
 	pausa();
 }
 
-void excluir_produto(Produto* produto){
-	int codProd;
+void excluir_produto(ListaProduto* listaProduto){
+	char codProd[10];
 	int index = 0;
 	printf("Por favor, digite o codigo do produto desejado. ");
-	scanf("%d", &codProd);
-	index = buscar_produto_codigo(produto, codProd, true);
+	scanf("%s", codProd);
+	index = buscar_produto_codigo(listaProduto, codProd, true);
 	if(index == ITEM_NAO_ENCONTRADO){
 		printf("\nItem nao encontrado!!!\n\n");
 		pausa();
@@ -128,19 +230,23 @@ void excluir_produto(Produto* produto){
 	}
 	//EXCLUSAO
 	if(qtdProd == 1 || index == qtdProd - 1){
+		//LIMPA O VET DE PRODUTO
+		free(listaProduto[index].produto);
 		qtdProd--;
 		printf("\nProduto excluido com sucesso\n");
 		pausa();
 	}
 	else{
-		produto[index].codigo = produto[qtdProd-1].codigo;
-		strcpy(produto[index].descricao, produto[qtdProd-1].descricao);
-		produto[index].qtd_estoque = produto[qtdProd-1].qtd_estoque;
-		produto[index].preco =	produto[qtdProd-1].preco;
+		strcpy(listaProduto[index].produto->codigo, listaProduto[qtdProd - 1].produto->codigo);
+		strcpy(listaProduto[index].produto->descricao, listaProduto[qtdProd - 1].produto->descricao);
+		listaProduto[index].produto->qtd_estoque = listaProduto[qtdProd - 1].produto->qtd_estoque;
+		listaProduto[index].produto->preco = listaProduto[qtdProd - 1].produto->preco;
+		//LIMPA O VET DE PRODUTO
+		free(listaProduto[qtdProd-1].produto);
 		qtdProd--;
 		printf("\nProduto excluido com sucesso\n");
 		pausa();	
-	}	
+	}
 }
 
 int menu_produto(){
@@ -160,7 +266,7 @@ int menu_produto(){
 	return opcao;
 }
 
-void gerenciar_menu_produto(Produto* produto){
+ListaProduto* gerenciar_menu_produto(ListaProduto* listaProduto){
 	int opcao;
 	int sair = 0;
 	do{
@@ -169,32 +275,34 @@ void gerenciar_menu_produto(Produto* produto){
 			case 1:
 				limpar();
 				printf("\nIncluir Produto\n\n");
-				produto = incluir_produto(produto);
+				listaProduto = incluir_produto(listaProduto);
 				break;
 			case 2:
 				limpar();
 				printf("\nAlterar Produto\n\n");
-				alterar_produto(produto);
+				alterar_produto(listaProduto);
 				pausa();
 				break;								
 			case 3:
 				limpar();
 				printf("\nListar produtos\n\n");
-				listar_produtos(produto, qtdProd, true);
+				listar_produtos(listaProduto, qtdProd, true);
 				pausa();
 				break;
 			case 4:
 				limpar();
 				printf("\nConsultar Produto\n\n");
-				//consultar_produto(produto, ITEM_NAO_ENCONTRADO);
+				consultar_produto(listaProduto, ITEM_NAO_ENCONTRADO);
 				break;
 			case 5:
 				limpar();
 				printf("\nExcluir Produto\n\n");
-				excluir_produto(produto);
+				excluir_produto(listaProduto);
 				break;								
 			case 6:
 				sair = 1;
+				pausa();
+				return listaProduto;
 				break;
 			default:
 				printf("Opcao Invalida!!!\n");

@@ -10,13 +10,14 @@ int menu_principal(){
 	printf("\n#########################");
 	printf("\n(1) Gerenciar Produto");
 	printf("\n(2) Gerenciar Pedido");
-	printf("\n(3) Sair");
+	printf("\n(3) RESETAR");
+	printf("\n(4) Sair");
 	printf("\n\nSelecionar opcao: ");
 	scanf("%d", &opcao);
 	return opcao;
 }
 
-void gerenciar_menu_principal(Produto* produto, Pedido* pedido){
+void gerenciar_menu_principal(ListaProduto* listaProduto, ListaPedido* listaPedido){
 	int opcao;
 	int sair = 0;
 	do{
@@ -24,12 +25,18 @@ void gerenciar_menu_principal(Produto* produto, Pedido* pedido){
 		opcao = menu_principal();
 		switch(opcao){
 			case 1:
-				gerenciar_menu_produto(produto);
+				listaProduto = gerenciar_menu_produto(listaProduto);
 				break;
 			case 2:
-				gerenciar_menu_pedido(produto, pedido);
+				listaPedido = gerenciar_menu_pedido(listaProduto, listaPedido);
 				break;
 			case 3:
+				listaProduto = kill_produto(listaProduto);
+				listaPedido = kill_pedido(listaPedido);
+				printf("/nRESETADO COM SUCESSO!!!\n");
+				pausa();
+				break;
+			case 4:
 				limpar();
 				sair = 1;
 				break;
@@ -42,10 +49,10 @@ void gerenciar_menu_principal(Produto* produto, Pedido* pedido){
 
 //CODIGO
 int main(int argc, char** argv){
-	
-	Produto* produtos = NULL;
-	Pedido* pedidos = NULL;
-		
-	gerenciar_menu_principal(produtos, pedidos);
+
+	ListaPedido* listaPedido = NULL;
+	ListaProduto* listaProduto = NULL;
+
+	gerenciar_menu_principal(listaProduto, listaPedido);
 	return 0;
 }
