@@ -40,3 +40,21 @@ Selecionar opcao:
 
 Selecionar opcao:
 ```
+
+## Pedido
+
+```
+#########################
+     Gerenciar Pedido
+#########################
+
+(1) Adicionar produto no carrinho
+(2) Consultar carrinho de compras
+(3) Excluir produto do carrinho
+(4) Alterar quantidade do produto do carrinho
+(5) Finalizar Pedido
+(6) Esvaziar carrinho de compras
+(7) Voltar
+
+Selecionar opcao:
+```
