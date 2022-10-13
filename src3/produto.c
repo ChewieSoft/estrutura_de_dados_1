@@ -14,6 +14,16 @@ struct listaProduto{
 	Produto* produto;
 };
 
+ListaProduto* kill_produto(ListaProduto* listaProduto){
+	int pro = 0;
+	for(pro = 0; pro < qtdProd; pro++){
+		free(listaProduto[pro].produto);
+	}
+	qtdProd = 0;
+	maxProd = REALLOCFACT;
+	listaProduto = (ListaProduto*) realloc(listaProduto, REALLOCFACT * sizeof(ListaProduto));
+}
+
 bool consulta_disponibilidade(ListaProduto* listaProduto, int index, int qtd){
 	if(listaProduto[index].produto->qtd_estoque >= qtd){
 		return true;

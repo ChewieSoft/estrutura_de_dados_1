@@ -12,7 +12,8 @@ int menu_principal(){
 	printf("\n#########################");
 	printf("\n(1) Gerenciar Produto");
 	printf("\n(2) Gerenciar Pedido");
-	printf("\n(3) Sair");
+	printf("\n(3) RESETAR");
+	printf("\n(4) Sair");
 	printf("\n\nSelecionar opcao: ");
 	scanf("%d", &opcao);
 	return opcao;
@@ -29,9 +30,13 @@ void gerenciar_menu_principal(ListaProduto* listaProduto, ListaPedido* listaPedi
 				listaProduto = gerenciar_menu_produto(listaProduto);
 				break;
 			case 2:
-				gerenciar_menu_pedido(listaProduto, listaPedido);
+				listaPedido = gerenciar_menu_pedido(listaProduto, listaPedido);
 				break;
 			case 3:
+				listaProduto = kill_produto(listaProduto);
+				listaPedido = kill_pedido(listaPedido);
+				break;
+			case 4:
 				limpar();
 				sair = 1;
 				break;
