@@ -1,1 +1,1 @@
-C:\Users\sciam\Desktop\ESTUDOS\Escalonamento_Processo\Escalonamento_Processo\Debug\Escalonamento_Processo.exe
+C:\Users\sciam\Desktop\UVA\estrutura_de_dados_1\Escalonamento_Processo\Debug\Escalonamento_Processo.exe
