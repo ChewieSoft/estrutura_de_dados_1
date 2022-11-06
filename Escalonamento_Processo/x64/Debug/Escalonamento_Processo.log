@@ -1,0 +1,3 @@
+﻿  main.c
+C:\Users\sciam\Desktop\ESTUDOS\Escalonamento_Processo\Escalonamento_Processo\main.c(41): warning C4716: 'inicializaListaProcesso': must return a value
+  Escalonamento_Processo.vcxproj -> C:\Users\sciam\Desktop\ESTUDOS\Escalonamento_Processo\Escalonamento_Processo\x64\Debug\Escalonamento_Processo.exe
