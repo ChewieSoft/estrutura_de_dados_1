@@ -4,7 +4,7 @@
 #include <stdlib.h>
 #include <stdbool.h>
 #include <Windows.h>
-#define CYCLE_TIME Sleep(4000)
+#define CYCLE_TIME Sleep(500)
 
 int cycle;
 

@@ -154,9 +154,9 @@ void imprimir(ListaProcesso* lista) {
 
 	Processo* processo = lista->processos;
 	printf("Ciclo: %d\n\n", cycle);
-	printf("Ingresso | P.Id | Tempo Restante | Prioridade Dinamica\n");
+	printf("Ingresso | P.Id	| Tempo Restante | Prioridade Dinamica\n");
 	while (processo != NULL) {
-		printf("%d %d %d %d\n", processo->ingresso, processo->tarefaId, processo->tempoRemanescente, processo->proridadeDinamica);
+		printf("%d	 | %d	| %d		 | %d\n", processo->ingresso, processo->tarefaId, processo->tempoRemanescente, processo->proridadeDinamica);
 		processo = processo->prox;
 	}
 	printf("-----------------------------------------------------------------------------\n");
