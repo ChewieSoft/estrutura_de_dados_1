@@ -17,4 +17,5 @@ Processo* selecao(ListaProcesso* lista);
 void executar(Processo* processo);
 Processo* excluirTerminado(Processo* anterior, Processo* processo);
 void manutencao(Processo* processo, ListaProcesso* lista);
+void imprimirInfos(int ciclo, Processo* processo);
 void imprimir(ListaProcesso* lista);

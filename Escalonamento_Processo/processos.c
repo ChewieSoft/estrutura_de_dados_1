@@ -2,6 +2,7 @@
 
 cycle = 0;
 
+//Descritivo
 struct listaProcesso {
 	int qtd;
 	struct processo* processos;
@@ -122,6 +123,7 @@ Processo* selecao(ListaProcesso* lista) {
 		}
 		aux = aux->prox;
 	}
+	printf("Processo: %d\n\n", retorno->tarefaId);
 	return retorno;
 }
 
@@ -150,14 +152,19 @@ void manutencao(Processo* processo, ListaProcesso* lista) {
 	}
 }
 
+//imprimir ciclo e processo atual
+void imprimirInfos(int ciclo, Processo* processo) {
+	printf("Ciclo: %d\n", cycle);
+	printf("P.Id: %d\n\n", processo->tarefaId);
+}
+
 void imprimir(ListaProcesso* lista) {
 
 	Processo* processo = lista->processos;
-	printf("Ciclo: %d\n\n", cycle);
 	printf("Ingresso | P.Id	| Tempo Restante | Prioridade Dinamica\n");
 	while (processo != NULL) {
 		printf("%d	 | %d	| %d		 | %d\n", processo->ingresso, processo->tarefaId, processo->tempoRemanescente, processo->proridadeDinamica);
 		processo = processo->prox;
 	}
-	printf("-----------------------------------------------------------------------------\n");
+	printf("-----------------------------------------------------------------------------\n\n");
 }
