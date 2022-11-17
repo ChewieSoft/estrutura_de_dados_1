@@ -38,7 +38,7 @@ ListaProcesso* inicializaListaProcesso() {
 void carregaDados(ListaProcesso* lista) {
 
 	//Leitura do arquivo txt
-	FILE* arq = fopen("Teste.txt", "r");
+	FILE* arq = fopen("Processos.txt", "r");
 	if (arq == NULL) {
 		exit(1);
 	}
