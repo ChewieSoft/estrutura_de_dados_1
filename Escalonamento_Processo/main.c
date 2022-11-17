@@ -19,16 +19,16 @@ int main() {
 			break;
 		}
 		//busca
-		processo = selecao(listaProcesso);		
+		processo = selecao(listaProcesso);
 		//execucao
 		executar(processo);
 		manutencao(processo, listaProcesso);
 		//amostragem
 		imprimirInfos(cycle, listaProcesso, processo);
-		imprimir(listaProcesso);		
+		imprimir(listaProcesso);
 		//SLEEP PARA DESACELERAR OS CICLOS
 		CYCLE_TIME;
-		cycle++;		
+		cycle++;
 	}
 
 	return 0;

@@ -38,7 +38,7 @@ ListaProcesso* inicializaListaProcesso() {
 void carregaDados(ListaProcesso* lista) {
 
 	//Leitura do arquivo txt
-	FILE* arq = fopen("Teste.txt", "r");
+	FILE* arq = fopen("Processos.txt", "r");
 	if (arq == NULL) {
 		exit(1);
 	}
@@ -108,7 +108,6 @@ void inserirProcessos(ListaProcesso* listaRaw, ListaProcesso* lista) {
 Processo* selecao(ListaProcesso* lista) {
 	//DEFINIR
 	Processo* aux = lista->processos;
-	Processo* ant = NULL;
 	Processo* retorno = NULL;
 	int prioridade = -1;
 
@@ -120,15 +119,14 @@ Processo* selecao(ListaProcesso* lista) {
 		if (aux->proridadeDinamica > prioridade) {
 			prioridade = aux->proridadeDinamica;
 			retorno = aux;
-			ant = aux;
 		}
 		else if (aux->proridadeDinamica == prioridade) {
-			if (ant->tempoRemanescente == aux->tempoRemanescente) {
-				retorno = ant->tarefaId < aux->tarefaId ? ant : aux;
+			if (retorno->tempoRemanescente == aux->tempoRemanescente) {
+				retorno = retorno->tarefaId < aux->tarefaId ? retorno : aux;
 				break;
 			}
 			else {
-				retorno = ant->tempoRemanescente < aux->tempoRemanescente ? ant : aux;
+				retorno = retorno->tempoRemanescente < aux->tempoRemanescente ? retorno : aux;
 				break;
 			}
 		}
