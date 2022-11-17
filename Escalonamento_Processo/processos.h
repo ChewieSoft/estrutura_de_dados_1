@@ -7,15 +7,17 @@
 #define CYCLE_TIME Sleep(500)
 
 int cycle;
+int run;
 
 typedef struct processo Processo;
 typedef struct listaProcesso ListaProcesso;
 
-void carregaDados(ListaProcesso* lista);
+bool finishHim(ListaProcesso* lista);
 ListaProcesso* inicializaListaProcesso();
+void carregaDados(ListaProcesso* lista);
 Processo* selecao(ListaProcesso* lista);
 void executar(Processo* processo);
-Processo* excluirTerminado(Processo* anterior, Processo* processo);
+void excluirTerminado(ListaProcesso* lista, Processo* processo);
 void manutencao(Processo* processo, ListaProcesso* lista);
-void imprimirInfos(int ciclo, Processo* processo);
+void imprimirInfos(int ciclo, ListaProcesso* lista, Processo* processo);
 void imprimir(ListaProcesso* lista);

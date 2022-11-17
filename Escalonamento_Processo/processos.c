@@ -1,6 +1,7 @@
 #include "processos.h"
 
 cycle = 0;
+run = 1;
 
 //Descritivo
 struct listaProcesso {
@@ -18,6 +19,14 @@ struct processo {
 	int proridadeEstatica;
 	int proridadeDinamica;
 };
+
+//vai finalizar o programa
+bool finishHim(ListaProcesso* lista) {
+	if (lista->qtd == 0) {
+		return true;
+	}
+	return false;
+}
 
 ListaProcesso* inicializaListaProcesso() {
 	ListaProcesso* lista = malloc(sizeof(ListaProcesso));
@@ -115,15 +124,16 @@ Processo* selecao(ListaProcesso* lista) {
 		}
 		else if (aux->proridadeDinamica == prioridade) {
 			if (ant->tempoRemanescente == aux->tempoRemanescente) {
-				return ant->tarefaId < aux->tarefaId ? ant : aux;
+				retorno = ant->tarefaId < aux->tarefaId ? ant : aux;
+				break;
 			}
 			else {
-				return ant->tempoRemanescente < aux->tempoRemanescente ? ant : aux;
+				retorno = ant->tempoRemanescente < aux->tempoRemanescente ? ant : aux;
+				break;
 			}
 		}
 		aux = aux->prox;
 	}
-	printf("Processo: %d\n\n", retorno->tarefaId);
 	return retorno;
 }
 
@@ -131,35 +141,42 @@ void executar(Processo* processo) {
 	processo->tempoRemanescente--;
 }
 
-Processo* excluirTerminado(Processo* anterior, Processo* processo) {
-	anterior->prox = processo->prox;
-	free(processo);
-	return anterior;
+void excluirTerminado(ListaProcesso* lista, Processo* processo) {
+	Processo* aux = lista->processos;
+	if (aux == processo) {
+		lista->processos = processo->prox;
+	}	
+	else {
+		while (aux->prox != processo) {
+			aux = aux->prox;
+		}
+		aux->prox = aux->prox->prox;
+	}
+	lista->qtd--;
 }
 
+//Alterar o tempo restante do processo atual e prioridade dinamica dos itens que n foram executados nesse ciclo
 void manutencao(Processo* processo, ListaProcesso* lista) {
 	Processo* aux = lista->processos;
-	Processo* ant = NULL;
 	while (aux != NULL) {
 		if (aux != processo) {
 			aux->proridadeDinamica++;
 		}
 		if (aux->tempoRemanescente == 0) {
-			aux = excluirTerminado(ant, aux);
+			excluirTerminado(lista, aux);
 		}
-		ant = aux;
 		aux = aux->prox;
 	}
 }
 
 //imprimir ciclo e processo atual
-void imprimirInfos(int ciclo, Processo* processo) {
+void imprimirInfos(int ciclo, ListaProcesso* lista, Processo* processo) {
 	printf("Ciclo: %d\n", cycle);
-	printf("P.Id: %d\n\n", processo->tarefaId);
+	printf("P.Id: %d\n", processo->tarefaId);
+	printf("P.Qtd: %d\n\n", lista->qtd);
 }
 
 void imprimir(ListaProcesso* lista) {
-
 	Processo* processo = lista->processos;
 	printf("Ingresso | P.Id	| Tempo Restante | Prioridade Dinamica\n");
 	while (processo != NULL) {

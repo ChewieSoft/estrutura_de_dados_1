@@ -8,20 +8,29 @@ int main() {
 
 	ListaProcesso* listaProcesso = inicializaListaProcesso();
 	Processo* processo = NULL;
-	int carinha = 1;
 
-	while (carinha) {
-		
+
+	while (run) {		
+		//insercao
 		inserirProcessos(listaProcessoRaw, listaProcesso);
+		//verifica se pode parar o codigo
+		if (finishHim(listaProcesso)) {
+			run = 0;
+			break;
+		}
+		//busca
 		processo = selecao(listaProcesso);		
+		//execucao
 		executar(processo);
 		manutencao(processo, listaProcesso);
-		imprimirInfos(cycle, processo);
-		imprimir(listaProcesso);
+		//amostragem
+		imprimirInfos(cycle, listaProcesso, processo);
+		imprimir(listaProcesso);		
 		//SLEEP PARA DESACELERAR OS CICLOS
 		CYCLE_TIME;
-		cycle++;
+		cycle++;		
 	}
 
 	return 0;
 }
+
